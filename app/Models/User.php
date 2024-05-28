@@ -3,15 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Model implements Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use Notifiable, HasUuids;
+    use \Illuminate\Auth\Authenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -34,12 +36,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function create(array $array)
+    {
+        $user = new User();
+        $user->username = $array['username'];
+        $user->email = $array['email'];
+        $user->password = bcrypt($array['password']);
+        $user->save();
+
+        return $user;
+    }
+
+
 }

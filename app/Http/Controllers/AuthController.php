@@ -28,12 +28,12 @@ class AuthController extends Controller
         $remember = (bool)$request->input('remember');
 
         if (Auth::attempt($credentials, $remember)) {
-            return redirect()->route('home');
+            $user = Auth::user();
+            return redirect()->route('home')->with('user', $user);
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-            'password' => 'The provided credentials do not match our records.'
+            'email' | 'password' => 'The provided credentials do not match our records.'
         ]);
     }
 
@@ -44,11 +44,11 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = new User();
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->save();
+        $user = (new User)->create([
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
 
         Auth::login($user);
 

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use \App\Http\Middleware\CheckUserLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware([CheckUserLogin::class])->group(function () {
+    Route::get('/', [AuthController::class, 'viewLogin']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+    Route::get('/register', [AuthController::class, 'viewRegister']);
+    Route::post('/register', [AuthController::class, 'register']);
+});
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });

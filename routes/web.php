@@ -26,7 +26,7 @@ Route::middleware([CheckUserLogin::class])->group(function () {
 
 Route::middleware([CheckUserIsLogin::class])->group(function () {
     Route::get('/', function () {
-        return view('home');
+        return view('pages.home');
     })->name('home');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

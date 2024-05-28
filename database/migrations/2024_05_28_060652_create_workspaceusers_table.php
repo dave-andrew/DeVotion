@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('workspaceusers', function (Blueprint $table) {
             $table->uuid('workspace_id')->primary();
-            $table->uuid('user_id')->primary();
+            $table->foreignUuid('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

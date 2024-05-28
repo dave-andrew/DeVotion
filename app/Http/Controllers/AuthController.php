@@ -23,11 +23,14 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
 
-        $remember = (bool)$request->input('remember');
-
-        if (Auth::attempt($credentials, $remember)) {
+//        $remember = (bool)$request->input('remember');
+        $isLogin = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        if ($isLogin) {
             $user = Auth::user();
             return redirect()->route('home')->with('user', $user);
         }

@@ -11,11 +11,12 @@
         <form action="{{route('login')}}" method="POST" class="w-full flex flex-col text-grey-500">
             @csrf
             <label class="text-sm mb-2" for="email">Email</label>
-            <input class="w-full p-2 mb-2 rounded-md ring-1 ring-gray-300 focus:ring-blue-500 focus:outline-none" type="text" name="email" id="email" placeholder="Enter your email address...">
+            <input class="auth-input" type="text" name="email" id="email" placeholder="Enter your email address...">
             <label class="text-sm mb-2" for="email">Password</label>
-            <input class="w-full p-2 mb-6 rounded-md ring-1 ring-gray-300 focus:ring-blue-500 focus:outline-none" type="text" name="password" id="password" placeholder="Enter your password...">
-            <button class="bg-blue-500  w-full p-2 rounded-md text-white text-sm font-medium">Continue</button>
+            <input class="auth-input" type="text" name="password" id="password" placeholder="Enter your password...">
+            <button class="auth-btn">Continue</button>
         </form>
+        <div class="mt-4 text-gray-500 text-sm text-center font-medium">Don't have an account? <a class="text-blue-500" href="/register">Register</a></div>
         <div class="w-full mt-16 text-gray-500 text-xs text-center text-balance">
             Your name and photo are displayed to users who invite you to a workspace using your email. By continuing, you acknowledge that you understand and agree to the Terms & Conditions and Privacy Policy
         </div>

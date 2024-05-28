@@ -1,45 +1,28 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
-</head>
-<body>
+@extends('layouts.app')
 
-        <form action="{{ route('register') }}" method="post">
+@section('title', 'Register')
+
+@section('content')
+    <div class="w-full max-w-sm  px-6 mx-0 my-auto flex flex-col ">
+        <div class="max-w-[380px] w-full my-8 flex flex-col text-xl text-left font-medium">
+            <h1>Welcome to <span class="font-bold">Re-gister</span> on DeVotion</h1>
+        </div>
+        <form action="{{route('register')}}" method="POST" class="w-full flex flex-col text-grey-500">
             @csrf
-            <label>
-                <input type="text" name="username" placeholder="Username">
-            </label>
-            <label>
-                <input type="email" name="email" placeholder="Email">
-            </label>
-            <label>
-                <input type="password" name="password" placeholder="Password">
-            </label>
-            <label>
-                <input type="password" name="password_confirmation" placeholder="Confirm Password">
-            </label>
-            <button type="submit">Register</button>
+            <label class="text-sm mb-2" for="username">Username</label>
+            <input class="auth-input" type="text" name="username" id="username" placeholder="Enter your username...">
+            <label class="text-sm mb-2" for="email">Email</label>
+            <input class="auth-input" type="text" name="email" id="email" placeholder="Enter your email address...">
+            <label class="text-sm mb-2" for="email">Password</label>
+            <input class="auth-input" type="text" name="password" id="password" placeholder="Enter your password...">
+            <label class="text-sm mb-2" for="password_confirmation">Confirm Password</label>
+            <input class="auth-input" type="text" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
+            <button class="auth-btn">Continue</button>
         </form>
+        <div class="mt-4 text-gray-500 text-sm text-center font-medium">Already have an account? <a class="text-blue-500" href="/login">Login</a></div>
+        <div class="w-full mt-16 text-gray-500 text-xs text-center text-balance">
+            Your name and photo are displayed to users who invite you to a workspace using your email. By continuing, you acknowledge that you understand and agree to the Terms & Conditions and Privacy Policy
+        </div>
 
-        @if($errors->any())
-            <div>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        @if(session('message'))
-            <div>
-                {{ session('message') }}
-            </div>
-        @endif
-</body>
-</html>
+    </div>
+@endsection

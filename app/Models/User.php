@@ -26,6 +26,9 @@ class User extends Model implements Authenticatable
         'email',
         'password',
     ];
+    protected $table = "users";
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that should be hidden for serialization.

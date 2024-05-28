@@ -16,6 +16,9 @@ class CheckUserIsLogin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (!auth()->check()) {
+            return redirect()->route('viewLogin');
+        }
         return $next($request);
     }
 }

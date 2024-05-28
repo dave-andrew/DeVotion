@@ -12,7 +12,7 @@
         <form action="{{ route('register') }}" method="post">
             @csrf
             <label>
-                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="username" placeholder="Username">
             </label>
             <label>
                 <input type="email" name="email" placeholder="Email">

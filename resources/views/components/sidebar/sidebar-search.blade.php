@@ -1,7 +1,7 @@
 <div x-show="search" x-on:click="search=false"
-    class="z-40 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black opacity-50">
+    class="z-50 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black opacity-50">
     <div @click.stop
-        class="bg-white max-w-3xl w-full max-h-96 h-full m-auto flex flex-col py-4 rounded-lg text-black">
+        class="z-50 bg-white max-w-3xl w-full max-h-96 h-full m-auto flex flex-col py-4 rounded-lg text-black">
         {{-- Search Bar --}}
         <div class="w-full flex items-center px-4 mb-3">
             <i class="fa-solid fa-magnifying-glass fa-lg mr-2 text-gray-500"></i>

@@ -38,7 +38,11 @@
                         One</div>
                 </div>
                 <object data="" type="">
-                    <div class="ml-auto text-sm">
+                    <div class="ml-auto text-sm flex items-center">
+                        <button
+                            class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                            <i class="fa-solid fa-ellipsis fa-sm"></i>
+                        </button>
                         <a href="/create"
                             class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
                             <i class="fa-solid fa-plus fa-sm"></i>
@@ -65,10 +69,16 @@
                 </div>
                 <object data="" type="">
                     <div class="ml-auto text-sm">
-                        <a href="/create"
-                            class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                            <i class="fa-solid fa-plus fa-sm"></i>
-                        </a>
+                        <div class="ml-auto text-sm flex items-center">
+                            <button
+                                class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                <i class="fa-solid fa-ellipsis fa-sm"></i>
+                            </button>
+                            <a href="/create"
+                                class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                <i class="fa-solid fa-plus fa-sm"></i>
+                            </a>
+                        </div>
                     </div>
                 </object>
             </a>

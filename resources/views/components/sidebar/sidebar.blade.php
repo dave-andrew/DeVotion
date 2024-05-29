@@ -1,4 +1,4 @@
-<div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100" x-data="{ search: false }">
+<div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100" x-data="{ search: false, setting: false }">
     <div class="relative h-full max-h-full flex flex-col ">
         {{-- Profile --}}
         <div class="h-8 sidebar-row my-2">
@@ -14,14 +14,11 @@
             <div>Search</div>
         </button>
 
-
-
-
         {{-- Settings & Members --}}
-        <a class="group sidebar-row my-1 text-sm font-semibold">
+        <button x-on:click="setting=true" class="group sidebar-row my-1 text-sm font-semibold">
             <i class="fa-solid fa-gear fa-md mr-2 text-gray-400"></i>
             <div>Settings & Members</div>
-        </a>
+        </button>
 
 
         {{-- Workspace --}}
@@ -42,7 +39,7 @@
                 </div>
                 <object data="" type="">
                     <div class="ml-auto text-sm">
-                        <a href="/"
+                        <a href="/create"
                             class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
                             <i class="fa-solid fa-plus fa-sm"></i>
                         </a>
@@ -68,7 +65,7 @@
                 </div>
                 <object data="" type="">
                     <div class="ml-auto text-sm">
-                        <a href="/"
+                        <a href="/create"
                             class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
                             <i class="fa-solid fa-plus fa-sm"></i>
                         </a>
@@ -78,4 +75,5 @@
         </div>
     </div>
     @include('components.sidebar.sidebar-search')
+    @include('components.sidebar.sidebar-settings')
 </div>

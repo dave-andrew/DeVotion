@@ -20,7 +20,7 @@ class CheckUserWorkspace
 
         $user = Auth::user();
 
-        if($user->workspaceuser->isEmpty()){
+        if($user->workspaces->isEmpty()){
             return redirect()->route('viewCreateWorkspace');
         }
 

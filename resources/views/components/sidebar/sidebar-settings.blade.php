@@ -1,4 +1,4 @@
-<div x-show="search" x-on:click="search=false"
+<div x-show="setting" x-on:click="setting=false"
     class="z-40 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black opacity-50">
     <div @click.stop
         class="bg-white max-w-3xl w-full max-h-96 h-full m-auto flex flex-col py-4 rounded-lg text-black">

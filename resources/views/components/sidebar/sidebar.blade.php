@@ -1,4 +1,4 @@
-<div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100" x-data="{ search: false, setting: false }">
+<div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100" x-data="{ search: false, setting: true }">
     <div class="relative h-full max-h-full flex flex-col ">
         {{-- Profile --}}
         <div class="h-8 sidebar-row my-2">

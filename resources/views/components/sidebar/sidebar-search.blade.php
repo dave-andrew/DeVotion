@@ -1,5 +1,5 @@
 <div x-show="search" x-on:click="search=false"
-    class="z-50 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black opacity-50">
+    class="z-50 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black bg-opacity-50">
     <div @click.stop
         class="z-50 bg-white max-w-3xl w-full max-h-96 h-full m-auto flex flex-col py-4 rounded-lg text-black">
         {{-- Search Bar --}}

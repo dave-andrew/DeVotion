@@ -3,7 +3,7 @@
 @section('title', 'Workspace')
 
 @section('content')
-    <div class="bg-red-200 flex flex-grow ">
+    <div class="min-h-screen flex flex-grow ">
         asdf
     </div>
 @endsection

@@ -34,6 +34,7 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace'])->group(function ()
 });
 
 Route::middleware('checkUserIsLogin')->group(function() {
+    Route::get('/notes', function(){return view('pages.notes');});
     Route::get('/create-workspace', [WorkspaceController::class, 'index'])->name('viewCreateWorkspace');
     Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
 });

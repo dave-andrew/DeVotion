@@ -21,4 +21,9 @@ class Workspace extends Model
         return $this->hasMany(Workspaceteam::class);
     }
 
+    public function workspaceuser()
+    {
+        return $this->hasMany(Workspaceuser::class);
+    }
+
 }

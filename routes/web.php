@@ -33,5 +33,7 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace'])->group(function ()
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/create-workspace', [WorkspaceController::class, 'index'])->name('viewCreateWorkspace');
-Route::post('/create-workspace', [WorkspaceController::class, 'createWorkspace'])->name('createWorkspace');
+Route::middleware('checkUserIsLogin')->group(function() {
+    Route::get('/create-workspace', [WorkspaceController::class, 'index'])->name('viewCreateWorkspace');
+    Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
+});

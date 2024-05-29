@@ -11,7 +11,7 @@ class Workspaceuser extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'id',
+        'workspace_id',
         'user_id',
         'role',
     ];

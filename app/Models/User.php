@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class User extends Model implements Authenticatable
 {
@@ -42,6 +43,7 @@ class User extends Model implements Authenticatable
     public function create(array $array)
     {
         $user = new User();
+        $user->id = Str::uuid();
         $user->username = $array['username'];
         $user->email = $array['email'];
         $user->password = bcrypt($array['password']);

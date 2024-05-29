@@ -28,6 +28,7 @@ Route::middleware([CheckUserIsLogin::class])->group(function () {
     Route::get('/', function () {
         return view('pages.home');
     })->name('home');
+    Route::get('/create', function(){return view('pages.create');});
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

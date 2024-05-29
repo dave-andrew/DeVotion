@@ -14,12 +14,13 @@ class Teamspace extends Model
         'permission'
     ];
 
-    public function create(array $array)
+    public function workspace()
     {
-        $teamspace = new Teamspace();
-        $teamspace->permission = $array['permission'];
-        $teamspace->save();
+        return $this->belongsTo(Workspace::class);
+    }
 
-        return $teamspace;
+    public function note()
+    {
+        return $this->hasMany(Note::class);
     }
 }

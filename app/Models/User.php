@@ -29,4 +29,9 @@ class User extends Model implements Authenticatable
 
     protected $primaryKey = 'id';
 
+    public function workspaceuser()
+    {
+        return $this->hasMany(Workspaceuser::class);
+    }
+
 }

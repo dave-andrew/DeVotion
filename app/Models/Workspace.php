@@ -12,17 +12,9 @@ class Workspace extends Model
 
     protected $fillable = [
         'name',
+        'description',
+        'type'
     ];
-
-    public function create(array $array)
-    {
-        $workspace = new Workspace();
-        $workspace->name = $array['name'];
-        $workspace->description = $array['description'];
-        $workspace->save();
-
-        return $workspace;
-    }
 
     public function workspaceteam()
     {

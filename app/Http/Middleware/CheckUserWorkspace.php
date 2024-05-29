@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class CheckUserIsLogin
+class CheckUserWorkspace
 {
     /**
      * Handle an incoming request.
@@ -16,8 +17,11 @@ class CheckUserIsLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check()) {
-            return redirect()->route('viewLogin');
+
+        $user = Auth::user();
+
+        if($user->workspaceuser->isEmpty()){
+            return redirect()->route('viewCreateWorkspace');
         }
 
         return $next($request);

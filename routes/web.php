@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use \App\Http\Middleware\CheckUserLogin;
 use \App\Http\Middleware\CheckUserIsLogin;
+use \App\Http\Controllers\WorkspaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +25,13 @@ Route::middleware('checkUserLogin')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
-Route::middleware('checkUserIsLogin')->group(function () {
+Route::middleware(['checkUserIsLogin', 'checkUserWorkspace'])->group(function () {
     Route::get('/', function () {
         return view('pages.home');
     })->name('home');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/create-workspace', [WorkspaceController::class, 'index'])->name('viewCreateWorkspace');
+Route::post('/create-workspace', [WorkspaceController::class, 'createWorkspace'])->name('createWorkspace');

@@ -83,11 +83,11 @@ class AuthController extends Controller
         if ($validate->fails()) {
             return redirect()->back()->withErrors($validate)->withInput();
         }
-        $user = (new User)->create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        $user = new User();
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
 
         Auth::login($user);
 

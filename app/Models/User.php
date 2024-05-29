@@ -29,17 +29,4 @@ class User extends Model implements Authenticatable
 
     protected $primaryKey = 'id';
 
-    public function create(array $array)
-    {
-        $user = new User();
-        $user->id = Str::uuid();
-        $user->username = $array['username'];
-        $user->email = $array['email'];
-        $user->password = Hash::make($array['password']);
-        $user->save();
-
-        return $user;
-    }
-
-
 }

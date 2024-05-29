@@ -16,7 +16,7 @@ use \App\Http\Middleware\CheckUserIsLogin;
 |
 */
 
-Route::middleware([CheckUserLogin::class])->group(function () {
+Route::middleware('checkUserLogin')->group(function () {
     Route::get('/login', [AuthController::class, 'viewLogin'])->name('viewLogin');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 
@@ -24,7 +24,7 @@ Route::middleware([CheckUserLogin::class])->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
-Route::middleware([CheckUserIsLogin::class])->group(function () {
+Route::middleware('checkUserIsLogin')->group(function () {
     Route::get('/', function () {
         return view('pages.home');
     })->name('home');

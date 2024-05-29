@@ -64,6 +64,8 @@ class WorkspaceController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
+            dd($e);
+
             return redirect()->back()->withErrors('There was an error creating the workspace. Please try again.')->withInput();
         }
     }

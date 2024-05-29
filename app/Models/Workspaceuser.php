@@ -10,19 +10,13 @@ class Workspaceuser extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [
-        'workspace_id',
-        'user_id',
-        'role',
-    ];
-
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function workspace()
     {
-        return $this->belongsTo(Workspace::class);
+        return $this->belongsTo(Workspace::class, 'workspace_id');
     }
 }

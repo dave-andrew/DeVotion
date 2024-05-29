@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         return back()->withErrors([
             'email' | 'password' => 'The provided credentials do not match our records.'
-        ]);
+        ])->withInput();
     }
 
     public function register(Request $request)

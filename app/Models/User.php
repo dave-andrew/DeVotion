@@ -26,19 +26,6 @@ class User extends Model implements Authenticatable
         'email',
         'password',
     ];
-    protected $table = "users";
-    public $incrementing = false;
-    protected $keyType = 'string';
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     protected $primaryKey = 'id';
 
@@ -48,7 +35,7 @@ class User extends Model implements Authenticatable
         $user->id = Str::uuid();
         $user->username = $array['username'];
         $user->email = $array['email'];
-        $user->password = bcrypt($array['password']);
+        $user->password = Hash::make($array['password']);
         $user->save();
 
         return $user;

@@ -11,7 +11,7 @@
         <form action="{{route('login')}}" method="POST" class="w-full flex flex-col text-grey-500">
             @csrf
             <label class="text-sm mb-2" for="email">Email</label>
-            <input class="auth-input" type="text" name="email" id="email" placeholder="Enter your email address..."value="{{old('email')}}">
+            <input class="auth-input" type="text" name="email" id="email" placeholder="Enter your email address..." value="{{old('email')}}">
             <label class="text-sm mb-2" for="password">Password</label>
             <input class="auth-input" type="password" name="password" id="password" placeholder="Enter your password..." value="{{old('password')}}">
             <label class="flex items-center mb-2">
@@ -22,7 +22,7 @@
                     {{ $errors->first() }}
                 </p>
             @endif
-            <button class="auth-btn">Continue</button>
+            <button class="auth-btn" type="submit">Continue</button>
         </form>
         <div class="mt-4 text-gray-500 text-sm text-center font-medium">Don't have an account? <a class="text-blue-500" href="/register">Register</a></div>
         <div class="w-full mt-16 text-gray-500 text-xs text-center text-balance">

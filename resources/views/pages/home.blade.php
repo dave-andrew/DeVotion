@@ -13,15 +13,15 @@
             <li>
                 {{
                     Auth::check() ?
-                    'Hello, ' . Auth::user()->name . ' | <a href="' . route('logout') . '">Logout</a>' :
-                    '<a href="">Register</a>'
+                    'Hello, '. Auth::user()->username :
+                    '<a href="">Login</a>'
                 }}
             </li>
             <li>
                 {{
                     Auth::check() ?
                     '<a href="' . route('home') . '">Home</a>' :
-                    '<a href="">Login</a>'
+                    ''
                 }}
             </li>
         </ul>

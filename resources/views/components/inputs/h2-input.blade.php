@@ -1,0 +1,1 @@
+<textarea class="text-2xl textarea " type="text" placeholder="Untitled"></textarea>

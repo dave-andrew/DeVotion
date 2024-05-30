@@ -28,15 +28,15 @@
                 <p class="w-52 pl-2 pr-4 border-r">User</p>
                 <p class="w-44 pl-4 pr-1">Teamspaces</p>
                 <p class="w-28 px-1 ">Groups</p>
-                <p class="w-32 px-1 ">Role</p>
+                <p class="w-36 px-1 ">Role</p>
                 <p class="w-12 px-1"></p>
             </div>
             <div class="flex py-2 border-b">
                 <p class="w-52 pl-2 pr-4 border-r">Test</p>
                 <p class="w-44 pl-4 pr-1 ">No access</p>
                 <p class="w-28 px-1 ">None</p>
-                <p class="w-32 px-1 ">Workspace owner</p>
-                <button class="w-12 px-1 "><i class="fa-solid fa-ellipsis hover:bg-gray-400"></i></button>
+                <p class="w-36 px-1 ">Workspace owner</p>
+                <button class="w-12 px-1 "><i class="fa-solid fa-ellipsis hover:bg-gray-100 px-2 py-1 rounded-md"></i></button>
             </div>
         </div>
     </div>

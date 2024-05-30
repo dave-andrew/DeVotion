@@ -7,6 +7,9 @@
 @tailwind utilities;
 
 @layer components{
+    hr{
+        @apply w-full border-b-[0.5px] border-gray-200
+    }
     .auth-input{
         @apply w-full p-2 mb-2 rounded-md ring-1 ring-gray-300 focus:ring-blue-500 focus:outline-none
     }

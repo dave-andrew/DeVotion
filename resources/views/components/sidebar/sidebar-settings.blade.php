@@ -1,4 +1,4 @@
-<div x-show="setting" x-on:click="setting=false" x-data="{tab:1}"
+<div x-cloak x-show="setting" x-on:click="setting=false" x-data="{tab:3}"
     class="z-40 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black bg-opacity-50">
     <div @click.stop
         class="bg-white max-w-5xl w-full max-h-[500px] h-full m-auto flex rounded-lg text-black">
@@ -23,5 +23,7 @@
             </button>
         </div>
         @include('components.sidebar.settings-tabs.my-account')
+        @include('components.sidebar.settings-tabs.settings')
+        @include('components.sidebar.settings-tabs.people')
     </div>
 </div>

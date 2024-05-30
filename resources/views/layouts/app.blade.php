@@ -9,6 +9,11 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>DeVotion | @yield('title')</title>
 </head>
+<style>
+    [x-cloak] {
+        display: none
+    }
+</style>
 
 <body>
     <div class="relative min-h-screen w-full flex justify-center items- dark:bg-primary">

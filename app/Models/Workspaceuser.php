@@ -8,15 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workspaceuser extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    public $incrementing = false;
+    public $timestamps = true;
 
-    public function workspace()
+    protected $fillable = [
+        'workspace_id',
+        'user_id',
+        'role',
+    ];
+
+    protected function setKeysForSaveQuery($query)
     {
-        return $this->belongsTo(Workspace::class, 'workspace_id');
+        $query
+            ->where('workspace_id', '=', $this->getAttribute('workspace_id'))
+            ->where('user_id', '=', $this->getAttribute('user_id'));
+
+        return $query;
     }
 }

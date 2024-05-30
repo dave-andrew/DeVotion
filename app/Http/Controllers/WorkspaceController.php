@@ -9,12 +9,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use function PHPUnit\Framework\isEmpty;
 
 class WorkspaceController extends Controller
 {
-    public function index()
+    public function workspaceType()
     {
-        return view('pages.create-workspace');
+        return view('pages.workspace-type');
+    }
+
+    public function workspaceDetail(Request $request)
+    {
+
+        if(!$request->type) {
+            return redirect()->route('viewCreateWorkspace.type');
+        }
+
+        return view('pages.workspace-detail')->with(['type'=>$request->type]);
     }
 
     public function get() {
@@ -34,12 +45,17 @@ class WorkspaceController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'type' => 'required|string|max:255',
+            'image' => 'required',
         ];
 
         $validated = Validator::make($request->all(), $validation, $messages);
+        $type = $request->type;
 
         if($validated->fails()) {
-            return redirect()->back()->withErrors($validated)->withInput();
+            return redirect()->route('pages.workspace-detail')
+                ->with('type', $type)
+                ->withErrors($validated->errors())
+                ->withInput();
         }
 
         try {
@@ -49,6 +65,7 @@ class WorkspaceController extends Controller
             $workspace->name = $request->name;
             $workspace->description = $request->description;
             $workspace->type = $request->type;
+            $workspace->image = $request->image;
             $workspace->save();
 
             $workspaceuser = new Workspaceuser();

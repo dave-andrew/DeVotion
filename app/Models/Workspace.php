@@ -13,7 +13,8 @@ class Workspace extends Model
     protected $fillable = [
         'name',
         'description',
-        'type'
+        'type',
+        'image'
     ];
 
     public function workspaceteam()

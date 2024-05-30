@@ -21,7 +21,7 @@ class CheckUserWorkspace
         $user = Auth::user();
 
         if($user->workspaces->isEmpty()){
-            return redirect()->route('viewCreateWorkspace');
+            return redirect()->route('viewCreateWorkspace.type');
         }
 
         return $next($request);

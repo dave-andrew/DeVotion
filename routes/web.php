@@ -27,14 +27,19 @@ Route::middleware('checkUserLogin')->group(function () {
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace'])->group(function () {
     Route::get('/', function () {
-        return view('pages.home');
+        return view('pages.notes');
     })->name('home');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::middleware('checkUserIsLogin')->group(function() {
-    Route::get('/notes', function(){return view('pages.notes');});
-    Route::get('/create-workspace', [WorkspaceController::class, 'index'])->name('viewCreateWorkspace');
+    Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');
+    Route::post('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');
+
     Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
+});
+
+Route::fallback(function () {
+    return redirect('/');
 });

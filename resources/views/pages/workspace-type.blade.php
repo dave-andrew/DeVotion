@@ -3,12 +3,11 @@
 @section('title', 'Create Workspace')
 
 @section('content')
-    <div class="w-full flex flex-col items-center pt-20">
+    <div class="w-full flex flex-col items-center justify-center pt-20">
         <h3 class="text-xl font-bold dark:text-white">How do you want to use DeVotion?</h3>
         <h2 class="text-2xl font-bold text-gray-500">This helps customize your experience</h2>
-        <div class="">
-            {{--        TODO: belom kelar buat inputannya--}}
-            <form action="{{ route('createWorkspace') }}" method="post" class="flex flex-col justify-center gap-16">
+        <div>
+            <form action="{{ route('viewCreateWorkspace.detail') }}" method="post" class="flex flex-col justify-center gap-16">
                 @csrf
                 <div class="flex justify-center gap-16 pt-10">
                     <label class="flex flex-col justify-center items-center cursor-pointer">

@@ -18,9 +18,18 @@ return new class extends Migration
             $table->uuid('teamspace_id');
             $table->timestamps();
 
-            $table->foreign('workspace_id')->references('id')->on('workspaces')->cascadeOnDelete();
-            $table->foreign('teamspace_id')->references('id')->on('teamspaces')->cascadeOnDelete();
+            // Add foreign key constraints
+            $table->foreign('workspace_id')
+                  ->references('id')
+                  ->on('workspaces')
+                  ->onDelete('cascade');
 
+            $table->foreign('teamspace_id')
+                  ->references('id')
+                  ->on('teamspaces')
+                  ->onDelete('cascade');
+
+            // Add composite primary key
             $table->primary(['workspace_id', 'teamspace_id']);
         });
     }

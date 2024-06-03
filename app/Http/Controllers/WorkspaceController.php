@@ -86,20 +86,17 @@ class WorkspaceController extends Controller
             $workspaceteam->teamspace_id = $teamspace->id;
             $workspaceteam->save();
 
-            dd($workspaceteam->teamspace_id);
-
             $note = new Note();
             $note->teamspace_id = $teamspace->id;
             $note->title = 'Welcome to your workspace!';
             $note->save();
 
-            dd($note->id);
+            $notedetail = new Notedetail();
+            $notedetail->note_id = $note->id;
+            $notedetail->content = 'This is your starting notedetail to learn what our feature is!';
+            $notedetail->type = 'text';
+            $notedetail->save();
 
-            $note = new Notedetail();
-            $note->note_id = $note->id;
-            $note->content = 'This is your starting note to learn what our feature is!';
-            $note->type = 'text';
-            $note->save();
 
             DB::commit();
 

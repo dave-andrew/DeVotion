@@ -24,24 +24,19 @@ Route::middleware('checkUserLogin')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
-Route::middleware(['checkUserIsLogin', 'checkUserWorkspace'])->group(function () {
-    Route::get('/', function () {
-        return view('pages.note');
-    })->name('home');
-
-    Route::post('/{username}/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
+Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
+    Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::fallback(function () {
-        return redirect()->route('viewWorkspace', [Auth::user()->username, Auth::user()->workspaces()->first()->id]);
+        return view('');
     });
-
 });
 
 Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');
     Route::get('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');
-
-    Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
+        
+    Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');  
 });

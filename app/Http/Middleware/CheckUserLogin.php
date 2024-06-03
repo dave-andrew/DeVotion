@@ -19,9 +19,13 @@ class CheckUserLogin
     {
 
         if(Auth::check()) {
-//            $workspace = Auth::user()->workspaces()->first();
-//            return redirect()->route('viewWorkspace', [Auth::user()->username, $workspace->id]);
-            return $next($request);
+           $workspace = Auth::user()->workspaces()->first();
+
+           if($workspace == null) {
+            return redirect()->route('viewCreateWorkspace.type');
+           }
+
+           return redirect()->route('viewWorkspace', [$workspace->id]);
         } else {
             return $next($request);
         }

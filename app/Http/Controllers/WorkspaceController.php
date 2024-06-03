@@ -33,7 +33,9 @@ class WorkspaceController extends Controller
 
     public function get() {
         $workspaces = Workspace::find(auth()->user()->pluck('id'));
-        return view('pages.notes', compact('workspaces'));
+        $users = $workspaces->users();
+        $teamspaces = $workspaces->teamspaces();
+        return view('pages.notes', compact('workspaces', 'users', 'teamspaces'));
     }
 
     public function create(Request $request)
@@ -97,11 +99,10 @@ class WorkspaceController extends Controller
             $notedetail->type = 'text';
             $notedetail->save();
 
-
             DB::commit();
 
             return redirect()
-                ->route('viewWorkspace', [Auth::user()->username, $workspace->id])
+                ->route('viewWorkspace', [$workspace->id])
                 ->with('success', 'Workspace created successfully.');
 
         } catch (\Exception $e) {
@@ -118,10 +119,10 @@ class WorkspaceController extends Controller
         $workspaceteam = Workspaceteam::where('workspace_id', $request->workspace_id)->get();
 
         if(!$workspace) {
-            return redirect()->route('home')->withErrors('Workspace not found.');
+            return redirect()->route('viewCreateWorkspace.type');
         }
 
-        return view('pages.workspace', compact('workspace', 'workspaceuser', 'workspaceteam'));
+        return view('pages.note', compact('workspace', 'workspaceuser', 'workspaceteam'));
     }
 
 }

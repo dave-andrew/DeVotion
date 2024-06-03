@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
 use \Illuminate\Contracts\View\Factory;
 use \Illuminate\Contracts\View\View;
@@ -47,9 +48,10 @@ class AuthController extends Controller
         $remember = (bool)$request->input('remember');
 
         $isLogin = Auth::attempt($data, $remember);
+
         if ($isLogin) {
             $user = Auth::user();
-            return redirect()->route('home')->with('user', $user);
+            return redirect()->route('viewWorkspace', [$user->workspaces->first()->id]);
         }
 
         return back()->withErrors([
@@ -91,7 +93,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('viewCreateWorkspace.type');
     }
 
     public function logout()

@@ -15,7 +15,7 @@
                 <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
                 <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
                     <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
-                        Workspace Number One
+                        Note Number One
                     </div>
                 </div>
             </a>

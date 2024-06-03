@@ -21,62 +21,9 @@
             <div>Settings & Members</div>
         </button>
 
-        {{-- Workspace --}}
+        {{-- Teamspace --}}
         <div class="flex flex-col text-gray-400 font-semibold">
-            <div class="sidebar-row mt-2 text-sm">
-                <h1>Workspace</h1>
-                <div class="ml-auto">
-                    <button class="w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                        <i class="fa-solid fa-plus fa-sm"></i>
-                    </button>
-                    <dialog id="workspaceDialog"
-                            class="flex-col top-10 left-10 w-[20rem] rounded-lg px-4 py-2 dark:bg-gray-600 dark:text-white shadow-lg">
-                        <div class="flex justify-between items-center">
-                            <div class="p-2">{{Auth::user()->email}}</div>
-                            <div class="flex items-center justify-center h-[1rem] hover:bg-gray-200 py-3 rounded-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="30px" height="30px"
-                                     viewBox="0 0 24 24">
-                                    <circle cx="17.5" cy="12" r="1.5"/>
-                                    <circle cx="12" cy="12" r="1.5"/>
-                                    <circle cx="6.5" cy="12" r="1.5"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <hr class="mb-2"/>
-                        <div class="flex-col">
-                            @foreach(Auth::user()->workspaces as $workspace)
-                                <a href="{{ $workspace->type == 'personal' ? url('/' . Auth::user()->username . '/' . $workspace->id) : url('/workspace/' . $workspace->id) }}"
-                                class="flex items-center justify-between w-full h-8 text-sm hover:bg-stone-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <div class="p-2">{{$workspace->name}}</div>
-                                    <div class="p-2">
-                                        <i class="fa-solid fa-chevron-right fa-sm"></i>
-                                    </div>
-                                </a>
-                            @endforeach
-                        </div>
-                    </dialog>
-                </div>
-            </div>
-            <a class="group sidebar-row my-1">
-                <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
-                <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
-                    <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">Workspace Number
-                        One
-                    </div>
-                </div>
-                <object data="" type="">
-                    <div class="ml-auto text-sm flex items-center">
-                        <button
-                            class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                            <i class="fa-solid fa-ellipsis fa-sm"></i>
-                        </button>
-                        <a href="/create"
-                           class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                            <i class="fa-solid fa-plus fa-sm"></i>
-                        </a>
-                    </div>
-                </object>
-            </a>
+            
         </div>
         {{-- Private --}}
         <div class="flex flex-col text-gray-400 font-semibold">
@@ -111,8 +58,8 @@
             <a class="group sidebar-row my-1">
                 <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
                 <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
-                    <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">Workspace Number
-                        One
+                    <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
+                        Note Number One
                     </div>
                 </div>
                 <object data="" type="">

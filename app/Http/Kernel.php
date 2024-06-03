@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\authenticateWorkspace;
 use App\Http\Middleware\CheckUserIsLogin;
 use App\Http\Middleware\CheckUserLogin;
 use App\Http\Middleware\CheckUserWorkspace;
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'checkUserLogin' => CheckUserLogin::class,
         'checkUserIsLogin' => CheckUserIsLogin::class,
         'checkUserWorkspace' => CheckUserWorkspace::class,
+        'authenticateWorkspace' => authenticateWorkspace::class,
     ];
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('teamspaces', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('name');
             $table->string('permission', 10);
             $table->timestamps();
         });

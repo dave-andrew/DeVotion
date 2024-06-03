@@ -80,6 +80,7 @@ class WorkspaceController extends Controller
             $workspaceuser->save();
 
             $teamspace = new Teamspace();
+            $teamspace->name = 'Private';
             $teamspace->permission = 'private';
             $teamspace->save();
 
@@ -115,14 +116,12 @@ class WorkspaceController extends Controller
     public function viewWorkspace(Request $request)
     {
         $workspace = Workspace::find($request->workspace_id);
-        $workspaceuser = Workspaceuser::where('workspace_id', $request->workspace_id)->where('user_id', Auth::id())->first();
-        $workspaceteam = Workspaceteam::where('workspace_id', $request->workspace_id)->get();
 
         if(!$workspace) {
             return redirect()->route('viewCreateWorkspace.type');
         }
 
-        return view('pages.note', compact('workspace', 'workspaceuser', 'workspaceteam'));
+        return view('pages.note', compact('workspace'));
     }
 
 }

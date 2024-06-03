@@ -23,60 +23,36 @@
 
         {{-- Teamspace --}}
         <div class="flex flex-col text-gray-400 font-semibold">
-            
-        </div>
-        {{-- Private --}}
-        <div class="flex flex-col text-gray-400 font-semibold">
-            <div class="sidebar-row mt-2 text-sm">
-                <h1>Private</h1>
-                <div class="relative ml-auto">
-                    <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
-                            class="w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                        <i class="fa-solid fa-plus fa-sm"></i>
-                    </button>
-                    <div id="dropdownHover"
-                         class="hidden z-20 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
-                            <li>
-                                <a href="/"
-                                   class="flex items-center justify-center w-full h-8 text-sm hover:bg-stone-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <i class="fa-solid fa-plus fa-sm mr-2"></i>
-                                    <div>Create</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/"
-                                   class="flex items-center justify-center w-full h-8 text-sm hover:bg-stone-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <i class="fa-solid fa-plus fa-sm mr-2"></i>
-                                    <div>Create</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            @foreach ($workspace->teamspaces as $team)
+                <div class="sidebar-row mt-2 text-sm">
+                    <h1>{{$team->name}}</h1>
                 </div>
-            </div>
-            <a class="group sidebar-row my-1">
-                <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
-                <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
-                    <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
-                        Note Number One
-                    </div>
-                </div>
-                <object data="" type="">
-                    <div class="ml-auto text-sm">
-                        <div class="ml-auto text-sm flex items-center">
-                            <button
-                                class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                                <i class="fa-solid fa-ellipsis fa-sm"></i>
-                            </button>
-                            <a href="/create"
-                               class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                                <i class="fa-solid fa-plus fa-sm"></i>
-                            </a>
+
+                @foreach($team->notes as $note)
+                <a class="group sidebar-row my-1">
+                    <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
+                    <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
+                        <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
+                            {{$note->title}}
                         </div>
                     </div>
-                </object>
-            </a>
+                    <object data="" type="">
+                        <div class="ml-auto text-sm">
+                            <div class="ml-auto text-sm flex items-center">
+                                <button
+                                    class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                    <i class="fa-solid fa-ellipsis fa-sm"></i>
+                                </button>
+                                <a href="/create"
+                                   class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                    <i class="fa-solid fa-plus fa-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </object>
+                </a>
+                @endforeach
+            @endforeach
         </div>
     </div>
     @include('components.sidebar.sidebar-search')

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Note;
+use App\Models\Notedetail;
+use App\Models\Teamspace;
 use App\Models\Workspace;
 use App\Models\Workspaceteam;
 use App\Models\Workspaceuser;
@@ -20,17 +23,17 @@ class WorkspaceController extends Controller
 
     public function workspaceDetail(Request $request)
     {
-
-        if(!$request->type) {
+        $type = $request->type;
+        if(!$type) {
             return redirect()->route('viewCreateWorkspace.type');
         }
 
-        return view('pages.workspace-detail')->with(['type'=>$request->type]);
+        return view('pages.workspace-detail', compact('type'));
     }
 
     public function get() {
         $workspaces = Workspace::find(auth()->user()->pluck('id'));
-        return view('pages.workspaces', compact('workspaces'));
+        return view('pages.notes', compact('workspaces'));
     }
 
     public function create(Request $request)
@@ -74,18 +77,54 @@ class WorkspaceController extends Controller
             $workspaceuser->role = 'owner';
             $workspaceuser->save();
 
+            $teamspace = new Teamspace();
+            $teamspace->permission = 'private';
+            $teamspace->save();
+
+            $workspaceteam = new Workspaceteam();
+            $workspaceteam->workspace_id = $workspace->id;
+            $workspaceteam->teamspace_id = $teamspace->id;
+            $workspaceteam->save();
+
+            dd($workspaceteam->teamspace_id);
+
+            $note = new Note();
+            $note->teamspace_id = $teamspace->id;
+            $note->title = 'Welcome to your workspace!';
+            $note->save();
+
+            dd($note->id);
+
+            $note = new Notedetail();
+            $note->note_id = $note->id;
+            $note->content = 'This is your starting note to learn what our feature is!';
+            $note->type = 'text';
+            $note->save();
+
             DB::commit();
 
-            return redirect()->route('home')->with('success', 'Workspace created successfully.');
+            return redirect()
+                ->route('viewWorkspace', [Auth::user()->username, $workspace->id])
+                ->with('success', 'Workspace created successfully.');
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            dd($e);
-
-            return redirect()->back()->withErrors('There was an error creating the workspace. Please try again.')->withInput();
+            return redirect()->route('viewCreateWorkspace.type')->withErrors('There was an error creating the workspace. Please try again.')->withInput();
         }
     }
 
+    public function viewWorkspace(Request $request)
+    {
+        $workspace = Workspace::find($request->workspace_id);
+        $workspaceuser = Workspaceuser::where('workspace_id', $request->workspace_id)->where('user_id', Auth::id())->first();
+        $workspaceteam = Workspaceteam::where('workspace_id', $request->workspace_id)->get();
+
+        if(!$workspace) {
+            return redirect()->route('home')->withErrors('Workspace not found.');
+        }
+
+        return view('pages.workspace', compact('workspace', 'workspaceuser', 'workspaceteam'));
+    }
 
 }

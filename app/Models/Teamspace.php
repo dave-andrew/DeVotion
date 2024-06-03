@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Teamspace extends Model
 {
@@ -14,13 +15,14 @@ class Teamspace extends Model
         'permission'
     ];
 
-    public function workspace()
+    public function workspaces()
     {
-        return $this->belongsTo(Workspace::class);
+        return $this->belongsToMany(Workspace::class, 'workspaceteams', 'teamspace_id', 'workspace_id');
     }
 
-    public function note()
+    public function notes()
     {
         return $this->hasMany(Note::class);
     }
+
 }

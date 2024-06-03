@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Workspace;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckUserLogin
+class authenticateWorkspace
 {
     /**
      * Handle an incoming request.
@@ -18,12 +19,18 @@ class CheckUserLogin
     public function handle(Request $request, Closure $next)
     {
 
-        if(Auth::check()) {
-//            $workspace = Auth::user()->workspaces()->first();
-//            return redirect()->route('viewWorkspace', [Auth::user()->username, $workspace->id]);
-            return $next($request);
-        } else {
-            return $next($request);
+        if($request->route('workspace_id')) {
+            $workspace = Workspace::find($request->route('workspace_id'));
+
+            if($workspace->users->contains(Auth::id())) {
+                return $next($request);
+            }
+
+            if(!$workspace) {
+                return redirect()->route('home');
+            }
         }
+
+        return $next($request);
     }
 }

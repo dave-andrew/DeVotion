@@ -31,7 +31,7 @@ class User extends Model implements Authenticatable
 
     public function workspaces()
     {
-        return $this->belongsToMany(Workspace::class, 'workspaceusers', 'user_id', 'workspace_id');
+        return $this->belongsToMany(Workspace::class, 'workspaceusers', 'user_id', 'workspace_id')->withPivot('role');
     }
 
 }

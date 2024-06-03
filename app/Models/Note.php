@@ -12,17 +12,21 @@ class Note extends Model
 
     protected $fillable = [
         'title',
-        'content',
-        'workspace_id',
+        'content'
     ];
 
-    public function workspace()
+    public function teamspace()
     {
-        return $this->belongsTo(Workspace::class);
+        return $this->belongsTo(Teamspace::class);
     }
 
     public function users()
     {
         return $this->belongsToMany(User::class, 'workspaceusers', 'workspace_id', 'user_id');
+    }
+
+    public function notedetails()
+    {
+        return $this->hasMany(Notedetail::class);
     }
 }

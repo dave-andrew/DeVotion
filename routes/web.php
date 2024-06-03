@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use \App\Http\Middleware\CheckUserLogin;
-use \App\Http\Middleware\CheckUserIsLogin;
+use \Illuminate\Support\Facades\Auth;
 use \App\Http\Controllers\WorkspaceController;
 
 /*
@@ -27,19 +26,22 @@ Route::middleware('checkUserLogin')->group(function () {
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace'])->group(function () {
     Route::get('/', function () {
-        return view('pages.notes');
+        return view('pages.note');
     })->name('home');
 
+    Route::post('/{username}/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::fallback(function () {
+        return redirect()->route('viewWorkspace', [Auth::user()->username, Auth::user()->workspaces()->first()->id]);
+    });
+
 });
 
 Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');
-    Route::post('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');
+    Route::get('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');
 
     Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
-});
-
-Route::fallback(function () {
-    return redirect('/');
 });

@@ -8,20 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workspaceteam extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
     protected $fillable = [
         'id',
         'teamspace_id',
     ];
 
-    public function create(array $array)
+    public function setKeysForSaveQuery($query)
     {
-        $workspaceteam = new Workspaceteam();
-        $workspaceteam->id = $array['id'];
-        $workspaceteam->teamspace_id = $array['teamspace_id'];
-        $workspaceteam->save();
-
-        return $workspaceteam;
+        return $query
+            ->where('workspace_id', $this->getAttribute('workspace_id'))
+            ->where('teamspace_id', $this->getAttribute('teamspace_id'));
     }
 }

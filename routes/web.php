@@ -32,9 +32,6 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
     Route::fallback(function () {
         return view('');
     });
-    Route::get('/note', function(){
-        return view('pages.note');
-    });
 });
 
 Route::middleware('checkUserIsLogin')->group(function() {

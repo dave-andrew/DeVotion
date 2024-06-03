@@ -24,8 +24,12 @@
         {{-- Teamspace --}}
         <div class="flex flex-col text-gray-400 font-semibold">
             @foreach ($workspace->teamspaces as $team)
-                <div class="sidebar-row mt-2 text-sm">
+                <div class="group sidebar-row flex items-center justify-between mt-2 text-sm">
                     <h1>{{$team->name}}</h1>
+                    <a href="/create"
+                        class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                        <i class="fa-solid fa-plus fa-sm"></i>
+                    </a>
                 </div>
 
                 @foreach($team->notes as $note)

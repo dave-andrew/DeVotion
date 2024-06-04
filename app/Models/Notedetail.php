@@ -10,4 +10,8 @@ class Notedetail extends Model
 {
     use HasFactory, HasUuids;
 
+    public function notes()
+    {
+        return $this->belongsTo(Note::class);
+    }
 }

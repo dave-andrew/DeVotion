@@ -21,13 +21,25 @@
             <div>Settings & Members</div>
         </button>
 
+        {{-- Create Teamspace --}}
+        <button x-on:click="teamspace=true" class="group sidebar-row my-1 text-sm font-semibold">
+            <i class="fa-solid fa-user-group fa-md mr-2 text-gray-400"></i>
+            <div>Create Teamspace</div>
+        </button>
+
         {{-- Teamspace --}}
         <div class="flex flex-col text-gray-400 font-semibold">
             @foreach ($workspace->teamspaces as $team)
                 <div class="group sidebar-row flex items-center justify-between mt-2 text-sm">
                     <h1>{{$team->name}}</h1>
-                    <form action="{{route('createNote')}}" method="post" class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                        <input name="teamspace_id" value="{{$team->id}}" hidden />
+                    <form action="{{route('createNote', ['workspace_id', $workspace->id]) }}" method="post" class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
+                        @csrf
+                        <label>
+                            <input name="teamspace_id" value="{{$team->id}}" hidden />
+                        </label>
+                        <label>
+                            <input name="workspace_id" value="{{$workspace->id}}" hidden />
+                        </label>
                         <button type="submit">
                             <i class="fa-solid fa-plus fa-sm"></i>
                         </button>

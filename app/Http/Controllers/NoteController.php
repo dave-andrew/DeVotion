@@ -14,8 +14,8 @@ class NoteController extends Controller
 
         $note->save();
 
-        dd($note);
+        $workspace_id = $request->workspace_id;
 
-        return redirect()->back()->with("success","Note created successfully");
+        return redirect()->back()->with('workspace_id'. $workspace_id);
     }
 }

@@ -11,18 +11,12 @@ class Note extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'title',
-        'content'
+        'title'
     ];
 
     public function teamspace()
     {
         return $this->belongsTo(Teamspace::class);
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'workspaceusers', 'workspace_id', 'user_id');
     }
 
     public function notedetails()

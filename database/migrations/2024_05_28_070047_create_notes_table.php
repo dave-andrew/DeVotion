@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('title');
             $table->timestamps();
 
-//            $table->foreign('teamspace_id')
-//                ->references('id')
-//                ->on('teamspaces')
-//                ->onDelete('cascade');
+            $table->foreign('teamspace_id')
+                ->references('id')
+                ->on('teamspaces')
+                ->onDelete('cascade');
         });
     }
 

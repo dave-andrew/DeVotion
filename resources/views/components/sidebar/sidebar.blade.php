@@ -27,8 +27,6 @@
                 <i class="fa-solid fa-user-group fa-md mr-2 text-gray-400"></i>
                 <div>Create Teamspace</div>
             </button>
-        @elsecan
-            
         @endcan
 
         {{-- Teamspace --}}

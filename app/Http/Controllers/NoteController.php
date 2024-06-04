@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class NoteController extends Controller
 {

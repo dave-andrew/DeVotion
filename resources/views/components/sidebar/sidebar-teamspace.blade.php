@@ -11,8 +11,15 @@
                 @csrf
                 <label for="name" class="text-sm font-semibold">Name</label>
                 <input type="text" name="name" id="name" class="w-full h-10 border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300" required>
-                <label for="description" class="text-sm font-semibold mt-2">Description</label>
-                <textarea name="description" id="description" class="w-full h-20 border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:ring focus:border-blue-300" required></textarea>
+                
+                <select id="permission" name="permission">
+                    <option value="default">Default</option>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+
+                <input id="workspace_id" name="workspace_id" value="{{$workspace->id}}" hidden />
+
                 <button type="submit" class="w-full h-10 bg-blue-500 text-white font-semibold rounded-md mt-4">Create Teamspace</button>
             </form>
         </div>

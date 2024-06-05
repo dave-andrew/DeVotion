@@ -36,6 +36,7 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
 
 Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
+Route::delete('/{workspace_id}', [WorkspaceController::class, 'delete'])->name('deleteWorkspace');
 
 Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');

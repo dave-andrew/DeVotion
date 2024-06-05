@@ -43,7 +43,7 @@ class TeamspacePolicy
      */
     public function create(User $user, Workspace $workspace)
     {
-        return $workspace->users->find($user->id)->pivot->role == 'owner';
+        return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
     }
 
     /**
@@ -55,7 +55,7 @@ class TeamspacePolicy
      */
     public function update(User $user, Workspace $workspace)
     {
-        return $workspace->users->find($user->id)->pivot->role == 'owner';
+        return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
     }
 
     /**

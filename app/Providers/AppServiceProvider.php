@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Policies\TeamspacePolicy;
+use App\Policies\WorkspacePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::define('teamspace-create', [TeamspacePolicy::class, 'create']);
+
+        Gate::define('workspace-delete', [WorkspacePolicy::class, 'delete']);
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TeamspaceController;
+use App\Http\Controllers\UserController;
 use \Illuminate\Support\Facades\Auth;
 use \App\Http\Controllers\WorkspaceController;
 
@@ -37,6 +38,8 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
 Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
 Route::delete('/{workspace_id}', [WorkspaceController::class, 'delete'])->name('deleteWorkspace');
+Route::put('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
+Route::delete('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
 
 Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');

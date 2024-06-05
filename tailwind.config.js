@@ -15,11 +15,9 @@ module.exports = {
             },
             colors: {
                 primary: '#2b2d30'
-            }
+            },
         },
     },
-    plugins: [
-        // require('flowbite/plugin')
-    ],
+    plugins: [],
 }
 

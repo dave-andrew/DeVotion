@@ -1,4 +1,6 @@
-<div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100" x-data="{ search: false, setting: false }"
+@php($counter = 0)
+
+<div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100" x-data="{ search: false, setting: false, teamspace:false }"
      x-cloak>
     <div class="relative h-full max-h-full flex flex-col">
         {{-- Profile --}}
@@ -33,7 +35,8 @@
         <div class="flex flex-col text-gray-400 font-semibold">
             @foreach ($workspace->teamspaces as $team)
                 <div class="group sidebar-row flex items-center justify-between mt-2 text-sm">
-                    <h1>{{$team->name}}</h1>
+                    @php($counter++)
+                    <h1 onclick="hideNotes({{$counter}})">{{$team->name}}</h1>
                     <form action="{{ route('createNote', $workspace->id) }}" method="post" class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
                         @csrf
                         <label>
@@ -48,35 +51,40 @@
                     </form>
                 </div>
 
-                @foreach($team->notes as $note)
-                <a class="group sidebar-row my-1">
-                    <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
-                    <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
-                        <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
-                            {{$note->title}}
-                        </div>
-                    </div>
-                    <object data="" type="">
-                        <div class="ml-auto text-sm">
-                            <div class="ml-auto text-sm flex items-center">
-                                <button
-                                    class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                                    <i class="fa-solid fa-ellipsis fa-sm"></i>
-                                </button>
-                                <a href="/create"
-                                   class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
-                                    <i class="fa-solid fa-plus fa-sm"></i>
-                                </a>
+                <div id="teamspace-notes-{{$counter}}">
+                    @foreach($team->notes as $note)
+                    <a class="group sidebar-row my-1">
+                        <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
+                        <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
+                            <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
+                                {{$note->title}}
                             </div>
                         </div>
-                    </object>
-                </a>
-                @endforeach
+                        <object data="" type="">
+                            <div class="ml-auto text-sm">
+                                <div class="ml-auto text-sm flex items-center">
+                                    <button
+                                        class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                        <i class="fa-solid fa-ellipsis fa-sm"></i>
+                                    </button>
+                                    <a href="/create"
+                                    class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                        <i class="fa-solid fa-plus fa-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </object>
+                    </a>
+                    @endforeach
+                </div>
             @endforeach
         </div>
     </div>
     @include('components.sidebar.sidebar-search')
     @include('components.sidebar.sidebar-settings')
+    @can('teamspace-create', $workspace)
+        @include('components.sidebar.sidebar-teamspace')
+    @endcan
     <script>
 
         function openDialog() {
@@ -87,6 +95,12 @@
         function closeDialog() {
             const dialog = document.getElementById('workspaceDialog');
             dialog.close();
+        }
+
+        function hideNotes(counter) {
+            const notes = document.getElementById(`teamspace-notes-${counter}`);
+            if(notes.style.display === 'none') notes.style.display = 'block';
+            else notes.style.display = 'none';
         }
 
         document.getElementById('workspaceDialogButton').addEventListener('click', openDialog);

@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('permission', 10);
             $table->timestamps();
+
+            $table->foreignUuid('workspace_id')
+                  ->references('id')
+                  ->on('workspaces')
+                  ->onDelete('cascade');
         });
     }
 

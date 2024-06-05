@@ -19,7 +19,7 @@ class Workspace extends Model
 
     public function teamspaces()
     {
-        return $this->belongsToMany(Teamspace::class, 'workspaceteams', 'workspace_id', 'teamspace_id');
+        return $this->hasMany(Teamspace::class);
     }
 
     public function users()

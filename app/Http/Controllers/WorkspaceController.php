@@ -6,13 +6,11 @@ use App\Models\Note;
 use App\Models\Notedetail;
 use App\Models\Teamspace;
 use App\Models\Workspace;
-use App\Models\Workspaceteam;
 use App\Models\Workspaceuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use function PHPUnit\Framework\isEmpty;
 
 class WorkspaceController extends Controller
 {
@@ -80,14 +78,10 @@ class WorkspaceController extends Controller
             $workspaceuser->save();
 
             $teamspace = new Teamspace();
+            $teamspace->workspace_id = $workspace->id;
             $teamspace->name = 'Private';
             $teamspace->permission = 'private';
             $teamspace->save();
-
-            $workspaceteam = new Workspaceteam();
-            $workspaceteam->workspace_id = $workspace->id;
-            $workspaceteam->teamspace_id = $teamspace->id;
-            $workspaceteam->save();
 
             $note = new Note();
             $note->teamspace_id = $teamspace->id;

@@ -108,4 +108,15 @@
 
     </script>
 
+    {{-- create a toast for displaying errors --}}
+    @if($errors->any())
+    <div id="toast" class="fixed top-4 right-4 bg-red-500 text-white font-bold p-2 rounded-md">
+        <div id="toast-body">
+            {{-- error message will be displayed here --}}
+            
+                <div>{{ $errors->first() }}</div>
+        </div>
+    </div>
+    @endif
+
 </div>

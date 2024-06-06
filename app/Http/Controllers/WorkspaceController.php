@@ -118,8 +118,7 @@ class WorkspaceController extends Controller
         return view('pages.note', compact('workspace'));
     }
 
-    public function delete(Request $request) {
-
+    public function deleteWorkspace(Request $request) {
         if(Auth::user()->workspaces->count() == 1) {
             return redirect()->route('viewWorkspace', [Auth::user()->workspaces->first()->id])->withErrors('You cannot delete the last workspace.');
         }

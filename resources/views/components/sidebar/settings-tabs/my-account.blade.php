@@ -33,7 +33,6 @@
         <hr>
         <form class="my-4" action="{{route('deleteAccount')}}" method="post">
             @csrf
-            @method("DELETE")
             <button class="px-4 py-1.5 rounded-sm ring-1 ring-red-500 text-red-500 text-sm font-medium hover:bg-red-100" type="submit">Delete account</button>
         </form>
     </div>

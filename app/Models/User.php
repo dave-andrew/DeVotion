@@ -29,7 +29,7 @@ class User extends Model implements Authenticatable
 
     protected $primaryKey = 'id';
 
-    public function workspaces()
+    public function workspaces(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Workspace::class, 'workspaceusers', 'user_id', 'workspace_id')->withPivot('role');
     }

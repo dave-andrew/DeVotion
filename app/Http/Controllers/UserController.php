@@ -33,9 +33,8 @@ class UserController extends Controller
     }
 
     public function deleteAccount() {
-        dd('delete account');
-        $user = User::find(Auth::id());
-        $user->delete();
+
+        User::destroy(Auth::id());
 
         return redirect()->route('viewLogin');
     }

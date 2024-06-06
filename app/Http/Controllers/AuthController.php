@@ -51,6 +51,9 @@ class AuthController extends Controller
 
         if ($isLogin) {
             $user = Auth::user();
+            if($user->workspaces->isEmpty()) {
+                return redirect()->route('viewCreateWorkspace.type');
+            }
             return redirect()->route('viewWorkspace', [$user->workspaces->first()->id]);
         }
 

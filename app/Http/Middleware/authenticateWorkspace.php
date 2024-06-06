@@ -31,6 +31,6 @@ class authenticateWorkspace
             }
         }
 
-        return redirect()->route('viewWorkspace', [Auth::user()->workspaces()->first()->id]);
+        return redirect()->route('viewCreateWorkspace.type');
     }
 }

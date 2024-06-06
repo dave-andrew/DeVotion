@@ -1,31 +1,31 @@
 <div x-show="tab==1" class="relative flex flex-col flex-grow py-4 px-8">
     <h1 class="mb-2 text-gray-500 font-medium ">My Profile</h1>
     <hr>
-    <form class="mt-4" action="{{route('changeUsername')}}">
+    <form class="mt-4" action="{{route('changeUsername')}}" method="post">
         @csrf
-        @method("PUT")
         <h1 class="text-gray-500 text-xs">Preferred name</h1>
-        <input id="username" class="max-w-72 w-full mr-2 my-2 px-2 py-1 text-sm rounded-sm ring-1 ring-gray-300 border-none outline-none" type="text">
+        <label for="username"></label><input id="username" name="username" class="max-w-72 w-full mr-2 my-1 px-2 py-1 text-sm rounded-sm ring-1 ring-gray-300 border-none outline-none" type="text">
+        <button class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100" type="submit">Save</button>
     </form>
 
     <h1 class="mb-2 text-gray-500 font-medium mt-2">Account Security</h1>
     <hr>
-    <form class="flex justify-between mt-4" action="" method="POST">
+    <form class="flex justify-between items-center mt-4" action="" method="POST">
         @csrf
         @method("PUT")
         <div class="flex flex-col">
             <h1 class="text-gray-500 text-sm font-semibold">Email</h1>
             <div class="text-gray-500 text-xs font-semibold">{{Auth::user()->email}}</div>
         </div>
-        <button>Change Email</button>
+        <button type="submit" class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100">Change Email</button>
     </form>
 
-    <div class="flex justify-between mt-4">
+    <div class="flex justify-between items-center mt-4">
         <div class="flex flex-col">
             <h1 class="text-gray-500 text-sm font-semibold">Password</h1>
             <div class="text-gray-500 text-xs font-semibold">********</div>
         </div>
-        <button>Change Password</button>
+        <button type="submit" class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100">Change Password</button>
     </div>
 
     <div class="mt-8">

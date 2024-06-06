@@ -22,13 +22,17 @@ class authenticateWorkspace
         if($request->route('workspace_id')) {
             $workspace = Workspace::find($request->route('workspace_id'));
 
-            if(!$workspace) {
+            if(!$workspace && !Auth::user()->workspaces->isEmpty()) {
                 return redirect()->route('viewWorkspace', [Auth::user()->workspaces()->first()->id]);
             }
 
             if($workspace->users->contains(Auth::id())) {
                 return $next($request);
             }
+        }
+
+        if(!Auth::user()->workspaces->isEmpty()) {
+            return redirect()->route('viewWorkspace', [Auth::user()->workspaces()->first()->id]);
         }
 
         return redirect()->route('viewCreateWorkspace.type');

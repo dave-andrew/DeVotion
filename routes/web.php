@@ -29,16 +29,14 @@ Route::middleware('checkUserLogin')->group(function () {
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
-
-    Route::fallback(function () {
-        return view('');
-    });
 });
 
 Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
 Route::delete('/{workspace_id}', [WorkspaceController::class, 'deleteWorkspace'])->name('deleteWorkspace');
-Route::put('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
+Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
+Route::post('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
+Route::post('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
 Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
 
 Route::middleware('checkUserIsLogin')->group(function() {
@@ -48,5 +46,9 @@ Route::middleware('checkUserIsLogin')->group(function() {
     Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::fallback(function () {
+        return view('');
+    });
 });
 

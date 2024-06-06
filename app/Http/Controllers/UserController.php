@@ -10,7 +10,8 @@ class UserController extends Controller
 {
     public function changeUsername(Request $request) {
         $user = User::find(Auth::id());
-        $user->name = $request->name;
+
+        $user->username = $request->username;
         $user->save();
 
         return redirect()->back();

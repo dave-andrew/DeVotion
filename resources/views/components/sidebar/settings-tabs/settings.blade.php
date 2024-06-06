@@ -3,9 +3,11 @@
     <hr>
     <form class="my-4" action="">
         <h1 class="text-gray-500 text-xs">Name</h1>
-        <input id="workspaceName" class="max-w-72 w-full mr-2 my-2 px-2 py-1 text-sm rounded-sm ring-1 ring-gray-300 border-none outline-none" type="text">
+        <label for="workspaceName"></label><input id="workspaceName" class="max-w-72 w-full mr-2 my-1 px-2 py-1 text-sm rounded-sm ring-1 ring-gray-300 border-none outline-none" type="text">
+        <button class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100" type="submit">Save</button>
+
     </form>
-    
+
     @can('workspace-delete', $workspace)
     <h1 class="mb-2 text-gray-500 font-medium ">Danger Zone</h1>
     <hr>

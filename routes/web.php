@@ -39,6 +39,8 @@ Route::post('/changePassword', [UserController::class, 'changePassword'])->name(
 Route::post('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
 Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
 
+Route::get('/search-notes', [NoteController::class, 'search'])->name('notes.search');
+
 Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');
     Route::get('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');

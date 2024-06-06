@@ -29,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('teamspace-create', [TeamspacePolicy::class, 'create']);
 
         Gate::define('workspace-delete', [WorkspacePolicy::class, 'delete']);
+
+        Gate::define('teamspace-view', [TeamspacePolicy::class, 'view']);
     }
 }

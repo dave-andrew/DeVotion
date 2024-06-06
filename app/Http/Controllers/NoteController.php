@@ -21,4 +21,16 @@ class NoteController extends Controller
 
         return redirect()->back()->with('workspace_id'. $workspace_id);
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $workspace_id = $request->workspace_id;
+
+        $notes = Note::where('teamspace_id', $workspace_id)
+            ->where('title', 'like', '%' . $search . '%')
+            ->get();
+
+        return view('pages.workspace', compact('notes', 'workspace_id'));
+    }
 }

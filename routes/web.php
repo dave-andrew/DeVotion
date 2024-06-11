@@ -35,8 +35,8 @@ Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->nam
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
 Route::delete('/{workspace_id}', [WorkspaceController::class, 'deleteWorkspace'])->name('deleteWorkspace');
 Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
-Route::post('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
-Route::post('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
+Route::put('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
+Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
 Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
 
 Route::get('/search-notes', [NoteController::class, 'search'])->name('notes.search');

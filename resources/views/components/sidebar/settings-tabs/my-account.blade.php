@@ -10,22 +10,25 @@
 
     <h1 class="mb-2 text-gray-500 font-medium mt-2">Account Security</h1>
     <hr>
-    <form class="flex justify-between items-center mt-4" action="" method="POST">
-        @csrf
-        @method("PUT")
+    <div class="flex justify-between items-center mt-4" x-data="{ changeemail: false}">
         <div class="flex flex-col">
             <h1 class="text-gray-500 text-sm font-semibold">Email</h1>
             <div class="text-gray-500 text-xs font-semibold">{{Auth::user()->email}}</div>
         </div>
-        <button type="submit" class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100">Change Email</button>
-    </form>
+        <button
+            class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100"
+            x-on:click="changeemail=true" >Change Email</button>
 
-    <div class="flex justify-between items-center mt-4">
+        @include('components.sidebar.settings-tabs.account-component.change-email')
+    </div>
+
+    <div class="flex justify-between items-center mt-4" x-data="{ changepassword: false }">
         <div class="flex flex-col">
             <h1 class="text-gray-500 text-sm font-semibold">Password</h1>
             <div class="text-gray-500 text-xs font-semibold">********</div>
         </div>
-        <button type="submit" class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100">Change Password</button>
+        <button x-on:click="changepassword=true" type="submit" class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100">Change Password</button>
+        @include('components.sidebar.settings-tabs.account-component.change-password')
     </div>
 
     <div class="mt-8">

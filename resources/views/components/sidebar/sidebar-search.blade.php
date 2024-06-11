@@ -5,8 +5,10 @@
         {{-- Search Bar --}}
         <div class="w-full flex items-center px-4 mb-3">
             <i class="fa-solid fa-magnifying-glass fa-lg mr-2 text-gray-500"></i>
-            <input class="w-full text-black text-xl outline-none border-none ring-0" type="text"
-                placeholder="Search in Your Notion...">
+            <label>
+                <input class="w-full text-black text-xl outline-none border-none ring-0" type="text"
+                    placeholder="Search in Your Notion...">
+            </label>
         </div>
         {{-- List of all workspace --}}
         <div class="w-full border-t border-gray-300 px-2 py-4 box-border overflow-y-auto">
@@ -29,8 +31,6 @@
 
                         @endforeach
                     </div>
-
-
                 @endcan
             @endforeach
         </div>

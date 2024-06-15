@@ -22,7 +22,7 @@ class UserController extends Controller
         $user = User::find(Auth::id());
 
         if (!password_verify($request->old_pass, $user->password)) {
-            return redirect()->back()->withErrors(['errors' => 'Old password is incorrect']);
+            return redirect()->back()->withErrors(['errors' => 'Old password is incorrect']);w
         }
 
         $validate = Validator::make($request->all(), [

@@ -21,6 +21,9 @@ class InvitationController extends Controller
             return redirect()->back()->withErrors('User not found');
         }
 
+        if($user->workspaces->contains($workspace_id)) {
+            return redirect()->back()->withErrors('User already in workspace');
+        }
 
         try{
             $invitation = new Invitation();

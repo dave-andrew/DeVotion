@@ -8,8 +8,8 @@
                         :class="{'border-b border-black text-black' : pos ==1, 'text-gray-400': pos!=1 }" class="p-2">
                     Members
                 </button>
-                <button x-on:click="pos = 3"
-                        :class="{'border-b border-black text-black' : pos ==3, 'text-gray-400': pos!=3}" class="p-2">
+                <button x-on:click="pos = 2"
+                        :class="{'border-b border-black text-black' : pos ==2, 'text-gray-400': pos!=2}" class="p-2">
                     Pending
                 </button>
                 {{--                TODO: Guests klo ada waktu--}}
@@ -33,25 +33,7 @@
             </div>
         </div>
 
-        <div class="flex flex-col text-sm text-gray-400 border-gray-300 overflow-x-auto ">
-            <div class="flex py-2 text-left border-b ">
-                <p class="w-52 pl-2 pr-4 border-r">User</p>
-                {{--                TODO: Ini kalo ada waktu aja yak bro--}}
-                {{--                <p class="w-44 pl-4 pr-1">Teamspaces</p>--}}
-                {{--                <p class="w-28 px-1 ">Groups</p>--}}
-                <p class="w-108 px-1 ">Role</p>
-                <p class="w-12 px-1"></p>
-            </div>
-            @foreach($workspace->users as $user)
-                <div class="flex py-2 border-b">
-                    <p class="w-52 pl-2 pr-4 border-r">{{$user->username}}</p>
-                    {{--                <p class="w-44 pl-4 pr-1 ">No access</p>--}}
-                    {{--                <p class="w-28 px-1 ">None</p>--}}
-                    <div class="w-108 px-1 ">{{$user->pivot->role}}</div>
-                    <button class="w-12 px-1 "><i
-                            class="fa-solid fa-ellipsis hover:bg-gray-100 px-2 py-1 rounded-md"></i></button>
-                </div>
-            @endforeach
-        </div>
+        @include('components.sidebar.settings-tabs.people-component.workspace-member')
+        @include('components.sidebar.settings-tabs.people-component.pending-invite')
     </div>
 </div>

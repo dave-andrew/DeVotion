@@ -29,4 +29,9 @@ class Workspace extends Model
             ->orderByRaw("FIELD(role, 'owner', 'admin', 'member')");
     }
 
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
 }

@@ -24,7 +24,9 @@ class Workspace extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'workspaceusers',  'workspace_id', 'user_id')->withPivot('role');
+        return $this->belongsToMany(User::class, 'workspaceusers',  'workspace_id', 'user_id')
+            ->withPivot('role')
+            ->orderByRaw("FIELD(role, 'owner', 'admin', 'member')");
     }
 
 }

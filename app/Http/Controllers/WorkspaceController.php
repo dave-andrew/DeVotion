@@ -55,7 +55,7 @@ class WorkspaceController extends Controller
         $type = $request->type;
 
         if($validated->fails()) {
-            return redirect()->route('pages.workspace-detail')
+            return redirect()->route('viewCreateWorkspace.detail')
                 ->with('type', $type)
                 ->withErrors($validated->errors())
                 ->withInput();

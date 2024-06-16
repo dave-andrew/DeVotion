@@ -6,6 +6,7 @@ use App\Models\Invitation;
 use App\Models\User;
 use App\Models\Workspaceuser;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class InvitationController extends Controller
 {
@@ -14,20 +15,40 @@ class InvitationController extends Controller
     {
         $workspace_id = $request->workspace_id;
 
-        $user_id = User::where('email', $request->email)->first()->id;
+        $user = User::where('email', $request->email)->first();
 
-        $invitation = new Invitation();
-        $invitation->workspace_id = $workspace_id;
-        $invitation->user_id = $user_id;
-        $invitation->invited_by = auth()->id();
-        $invitation->save();
+        if(!$user) {
+            return redirect()->back()->withErrors('User not found');
+        }
 
-        return redirect()->route('workspaces.show', ['workspace' => $workspace_id]);
+
+        try{
+            $invitation = new Invitation();
+            $invitation->workspace_id = $workspace_id;
+            $invitation->user_id = $user->id;
+            $invitation->invited_by = auth()->id();
+            $invitation->save();
+        }catch (QueryException $e){
+            if ($e->errorInfo[1] == 1062) {
+                if (str_contains($e->errorInfo[2], 'unique_invitation') !== false) {
+                    return redirect()->back()
+                        ->withErrors('User already invited');
+                }
+            }
+
+            return redirect()->back()->withErrors('User not found');
+        }
+
+        return redirect()->back();
     }
 
     public function accept(Request $request)
     {
         $invitation = Invitation::find($request->invitation_id);
+
+        if(!$invitation) {
+            return redirect()->back()->withErrors('Hmm, something went wrong. Please try again.');
+        }
 
         $workspace = $invitation->workspace;
         $user = $invitation->user;
@@ -40,7 +61,7 @@ class InvitationController extends Controller
 
         $invitation->delete();
 
-        return redirect()->route('workspaces.show', ['workspace' => $workspace->id]);
+        return redirect()->back();
     }
 
     public function decline(Request $request)

@@ -12,12 +12,14 @@
 
                     @foreach(Auth::user()->invitations as $invitation)
                         <div class="flex items">
-                            <div class="flex flex-col w-1/2">
+                            <div class="flex w-full py-4">
                                 <img src="data:image/jpeg;base64,{{ $invitation->workspace->image }}" alt="{{ $invitation->workspace->name }}" />
-                                <h1 class="text-gray-500 font-semibold">{{ $invitation->workspace->name }}</h1>
-                                <h2 class="text-gray-500 font-semibold">{{ $invitation->invited_by->username }}</h2>
+                                <div class="flex flex-col ml-4">
+                                    <h1 class="text-gray-500 font-semibold">{{ $invitation->workspace->name }}</h1>
+                                    <h2 class="text-gray-500 font-semibold">{{ $invitation->invitedBy->username }}</h2>
+                                </div>
                             </div>
-                            <div class="flex flex-col w-1/2">
+                            <div class="flex items-center w-1/2 gap-2">
                                 <form method="POST" action="{{route('invitation.accept')}}">
                                     @csrf
                                     <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
@@ -25,7 +27,7 @@
                                 </form>
                                 <form method="POST" action="{{route('invitation.decline')}}">
                                     @csrf
-                                    @method('DELETE')
+                                    <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
                                     <button type="submit" class="bg-red-500 p-2 rounded-md text-white text-xs font-medium">Decline</button>
                                 </form>
                             </div>

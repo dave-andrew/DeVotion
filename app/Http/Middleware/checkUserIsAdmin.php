@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Invitation;
 use Closure;
 use Illuminate\Http\Request;
 
-class checkInvitation
+class checkUserIsAdmin
 {
     /**
      * Handle an incoming request.
@@ -18,12 +17,12 @@ class checkInvitation
     public function handle(Request $request, Closure $next)
     {
 
-        $invitation = Invitation::find($request->invitation_id);
+        $role = auth()->user()->workspaces->find($request->workspace_id)->pivot->role;
 
-        if($invitation->user->id != auth()->id()) {
-            return redirect()->back();
+        if($role == 'admin' || $role == 'owner') {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()->back()->withErrors('You are not allowed to do this action');
     }
 }

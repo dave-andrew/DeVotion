@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('message')->default('You are invited to join this workspace');
             $table->timestamps();
+
+            $table->unique(['workspace_id', 'user_id'], 'unique_invitation');
         });
     }
 

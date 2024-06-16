@@ -13,16 +13,16 @@ class Invitation extends Model
 
     function workspace()
     {
-        $this->hasMany(Workspace::class);
+        return $this->belongsTo(Workspace::class);
     }
 
     function user()
     {
-        $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    function invited_by(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    function invitedBy()
     {
-        $this->belongsTo(User::class, 'invited_by');
+        return $this->belongsTo(User::class, 'invited_by');
     }
 }

@@ -36,7 +36,7 @@ class User extends Model implements Authenticatable
 
     public function invitations()
     {
-        return $this->hasMany(Invitation::class)->orderBy('created_at');
+        return $this->hasMany(Invitation::class, 'user_id')->orderBy('created_at');
     }
 
 }

@@ -30,6 +30,9 @@ Route::middleware('checkUserLogin')->group(function () {
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
+    Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
+        ->middleware('checkUserIsAdmin')
+        ->name('invitation.create');
 });
 
 Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');
@@ -43,8 +46,8 @@ Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('d
 Route::get('/search-notes', [NoteController::class, 'search'])->name('notes.search');
 
 Route::middleware('checkInvitation')->group(function () {
-    Route::post('/accept-invitation', [InvitationController::class, 'accept'])->name('acceptInvitation');
-    Route::post('/decline-invitation', [InvitationController::class, 'decline'])->name('declineInvitation');
+    Route::post('/accept-invitation', [InvitationController::class, 'accept'])->name('invitation.accept');
+    Route::post('/decline-invitation', [InvitationController::class, 'decline'])->name('invitation.decline');
 });
 
 Route::middleware('checkUserIsLogin')->group(function() {

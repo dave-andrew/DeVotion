@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Invitation;
 use Closure;
 use Illuminate\Http\Request;
 
-class checkInvitation
+class checkUserIsOwner
 {
     /**
      * Handle an incoming request.
@@ -18,9 +17,7 @@ class checkInvitation
     public function handle(Request $request, Closure $next)
     {
 
-        $invitation = Invitation::find($request->invitation_id);
-
-        if($invitation->user->id != auth()->id()) {
+        if(auth()->user()->workspaces->find($request->workspace_id)->pivot->role != 'admin') {
             return redirect()->back();
         }
 

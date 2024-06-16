@@ -1,7 +1,7 @@
 @php($counter = 0)
 
 <div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100"
-     x-data="{ search: false, setting: false, teamspace: false, workspace: false }" x-cloak>
+     x-data="{ search: false, setting: false, teamspace: false, workspace: false, invitations: false }" x-cloak>
     <div class="relative h-full max-h-full flex flex-col">
         {{-- Profile --}}
         <div id="workspaceDialogButton" class="h-8 sidebar-row my-2" onclick="openDialog()"
@@ -25,6 +25,11 @@
         <button x-on:click="setting=true" class="group sidebar-row my-1 text-sm font-semibold">
             <i class="fa-solid fa-gear fa-md mr-2 text-gray-400"></i>
             <div>Settings & Members</div>
+        </button>
+
+        <button x-on:click="invitations=true" class="group sidebar-row my-1 text-sm font-semibold">
+            <i class="fa fa-envelope fa-md mr-2 text-gray-400" aria-hidden="true"></i>
+            <div>Invitations</div>
         </button>
 
         {{-- Create Teamspace --}}
@@ -91,6 +96,7 @@
     @can('teamspace-create', $workspace)
         @include('components.sidebar.sidebar-teamspace')
     @endcan
+    @include('components.sidebar.sidebar-invitations')
     <script>
         function openDialog() {
             const dialog = document.getElementById('workspaceDialog');

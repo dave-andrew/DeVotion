@@ -7,6 +7,7 @@ use App\Http\Controllers\TeamspaceController;
 use App\Http\Controllers\UserController;
 use \Illuminate\Support\Facades\Auth;
 use \App\Http\Controllers\WorkspaceController;
+use \App\Http\Controllers\InvitationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,11 @@ Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('change
 Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
 
 Route::get('/search-notes', [NoteController::class, 'search'])->name('notes.search');
+
+Route::middleware('checkInvitation')->group(function () {
+    Route::post('/accept-invitation', [InvitationController::class, 'accept'])->name('acceptInvitation');
+    Route::post('/decline-invitation', [InvitationController::class, 'decline'])->name('declineInvitation');
+});
 
 Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');

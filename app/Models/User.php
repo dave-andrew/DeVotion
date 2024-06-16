@@ -34,4 +34,9 @@ class User extends Model implements Authenticatable
         return $this->belongsToMany(Workspace::class, 'workspaceusers', 'user_id', 'workspace_id')->withPivot('role');
     }
 
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class)->orderBy('created_at');
+    }
+
 }

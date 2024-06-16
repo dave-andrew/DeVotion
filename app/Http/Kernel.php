@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'checkUserIsLogin' => CheckUserIsLogin::class,
         'checkUserWorkspace' => CheckUserWorkspace::class,
         'authenticateWorkspace' => authenticateWorkspace::class,
+        'checkInvitation' => \App\Http\Middleware\checkInvitation::class,
     ];
 }

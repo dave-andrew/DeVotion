@@ -18,12 +18,11 @@ class Invitation extends Model
 
     function user()
     {
-        $this->hasMany(User::class);
+        $this->belongsTo(User::class, 'user_id');
     }
 
-    function invited_by()
+    function invited_by(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        $this->hasMany(User::class);
+        $this->belongsTo(User::class, 'invited_by');
     }
-
 }

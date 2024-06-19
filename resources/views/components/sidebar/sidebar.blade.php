@@ -43,6 +43,9 @@
         {{-- Teamspace --}}
         <div class="flex flex-col text-gray-400 font-semibold">
             @foreach ($workspace->teamspaces as $team)
+                @cannot('teamspace-view', [$workspace, $team])
+                    @continue
+                @endcannot
                 <div class="group sidebar-row flex items-center justify-between mt-2 text-sm">
                     @php($counter++)
                     <h1 onclick="hideNotes({{ $counter }})">{{ $team->name }}</h1>

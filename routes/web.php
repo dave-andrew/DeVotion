@@ -30,22 +30,32 @@ Route::middleware('checkUserLogin')->group(function () {
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
+
     Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
         ->middleware('checkInviteAuthorization')
         ->name('invitation.create');
-    Route::post('/{workspace_id}/promote', [WorkspaceuserController::class, 'promote'])
+
+    Route::post('/{workspace_id}/roles', [WorkspaceuserController::class, 'promote'])
         ->middleware('checkPromoteAuthorization')
         ->name('promoteUser');
 });
 
 Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');
+
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
-Route::delete('/{workspace_id}', [WorkspaceController::class, 'deleteWorkspace'])->name('deleteWorkspace');
+
+Route::put('/{workspace_id}', [WorkspaceController::class, 'updateWorkspace'])
+    ->name('updateWorkspace');
+Route::delete('/{workspace_id}', [WorkspaceController::class, 'deleteWorkspace'])
+    ->name('deleteWorkspace');
+
+// User Accounts
 Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
 Route::put('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
 Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
 Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
 
+// TODO: NOT YET DONE
 Route::get('/search-notes', [NoteController::class, 'search'])->name('notes.search');
 
 Route::middleware('checkInvitation')->group(function () {

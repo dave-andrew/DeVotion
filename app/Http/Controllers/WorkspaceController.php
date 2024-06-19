@@ -19,6 +19,40 @@ class WorkspaceController extends Controller
         return view('pages.workspace-type');
     }
 
+    public function updateWorkspace(Request $request)
+    {
+        $workspace = Workspace::find($request->workspace_id);
+
+        if(!$workspace) {
+            return redirect()->back()->withErrors("Something isn't right, please try again later.");
+        }
+
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'workspaceName' => 'required|string|max:255',
+            ],
+            [
+                'workspaceName.required' => 'Workspace name is required.',
+                'workspaceName.string' => 'Workspace name must be a string.',
+                'workspaceName.max' => 'Workspace name must not exceed 255 characters.',
+            ]
+        );
+
+        if($validate->fails()) {
+            return redirect()->back()->withErrors($validate->errors());
+        }
+
+        if($workspace->name == $request->workspaceName) {
+            return redirect()->back()->withErrors('Workspace name is the same as the current name.');
+        }
+
+        $workspace->name = $request->workspaceName;
+        $workspace->save();
+
+        return redirect()->back()->with('success', 'Workspace updated successfully.');
+    }
+
     public function workspaceDetail(Request $request)
     {
         $type = $request->type;

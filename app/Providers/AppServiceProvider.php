@@ -27,16 +27,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        # Teamspaces
         Gate::define('teamspace-create', [TeamspacePolicy::class, 'create']);
-
-        Gate::define('workspace-delete', [WorkspacePolicy::class, 'delete']);
-
         Gate::define('teamspace-view', [TeamspacePolicy::class, 'view']);
 
+        # Workspaces
+        Gate::define('workspace-update', [WorkspacePolicy::class, 'update']);
+        Gate::define('workspace-delete', [WorkspacePolicy::class, 'delete']);
+
+        # Workspace Users
         Gate::define('user-isAdmin', [WorkspacePolicy::class, 'isAdmin']);
-
         Gate::define('user-isOwner', [WorkspacePolicy::class, 'isOwner']);
-
         Gate::define('user-isAdminOrOwner', [WorkspacePolicy::class, 'isAdminOrOwner']);
     }
 }

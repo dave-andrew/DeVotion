@@ -31,10 +31,10 @@ Route::middleware('checkUserLogin')->group(function () {
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
     Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
-        ->middleware('checkUserIsAdmin')
+        ->middleware('checkInviteAuthorization')
         ->name('invitation.create');
     Route::post('/{workspace_id}/promote', [WorkspaceuserController::class, 'promote'])
-        ->middleware('checkUserIsOwner')
+        ->middleware('checkPromoteAuthorization')
         ->name('promoteUser');
 });
 

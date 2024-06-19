@@ -12,11 +12,6 @@
                         :class="{'border-b border-black text-black' : pos ==2, 'text-gray-400': pos!=2}" class="p-2">
                     Pending
                 </button>
-                {{--                TODO: Guests klo ada waktu--}}
-                {{--                <button x-on:click="pos = 2"--}}
-                {{--                        :class="{'border-b border-black text-black' : pos ==2, 'text-gray-400': pos!=2 }" class="p-2 ">--}}
-                {{--                    Guests--}}
-                {{--                </button>--}}
             </div>
             <div class="flex items-center ">
                 <div class="flex items-center  mr-2">

@@ -72,7 +72,7 @@ class Kernel extends HttpKernel
         'checkUserWorkspace' => CheckUserWorkspace::class,
         'authenticateWorkspace' => authenticateWorkspace::class,
         'checkInvitation' => \App\Http\Middleware\checkInvitation::class,
-        'checkUserIsAdmin' => \App\Http\Middleware\checkUserIsAdmin::class,
-        'checkUserIsOwner' => \App\Http\Middleware\checkUserIsOwner::class,
+        'checkInviteAuthorization' => \App\Http\Middleware\checkInviteAuthorization::class,
+        'checkPromoteAuthorization' => \App\Http\Middleware\checkPromoteAuthorization::class,
     ];
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Workspace;
 use Closure;
 use Illuminate\Http\Request;
 
-class checkUserIsAdmin
+class checkPromoteAuthorization
 {
     /**
      * Handle an incoming request.
@@ -16,13 +17,17 @@ class checkUserIsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        $role = $request->role;
+        $workspace = Workspace::find($request->workspace_id);
 
-        $role = auth()->user()->workspaces->find($request->workspace_id)->pivot->role;
-
-        if($role == 'admin' || $role == 'owner') {
+        if($role == 'owner' && auth()->user()->can('user-isOwner', $workspace)) {
             return $next($request);
         }
 
-        return redirect()->back()->withErrors('You are not allowed to do this action');
+        if(($role == 'admin' || $role == 'member') && auth()->user()->can('user-isAdminOrOwner', $request->workspace)) {
+            return $next($request);
+        }
+
+        return redirect()->back()->withErrors('You are not authorized to perform this action.');
     }
 }

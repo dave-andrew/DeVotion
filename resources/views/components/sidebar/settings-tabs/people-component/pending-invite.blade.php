@@ -8,7 +8,7 @@
 
     @foreach($workspace->invitations as $invitation)
     <div>
-        {{$invitation->invitedBy->username}}
+        {{$invitation->user->username}}
     </div>
     @endforeach
 

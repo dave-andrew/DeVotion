@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use \Illuminate\Support\Facades\Auth;
 use \App\Http\Controllers\WorkspaceController;
 use \App\Http\Controllers\InvitationController;
-
+use \App\Http\Controllers\WorkspaceuserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +33,9 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
     Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
         ->middleware('checkUserIsAdmin')
         ->name('invitation.create');
+    Route::post('/{workspace_id}/promote', [WorkspaceuserController::class, 'promote'])
+        ->middleware('checkUserIsOwner')
+        ->name('promoteUser');
 });
 
 Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');

@@ -17,7 +17,7 @@ class checkUserIsOwner
     public function handle(Request $request, Closure $next)
     {
 
-        if(auth()->user()->workspaces->find($request->workspace_id)->pivot->role != 'admin') {
+        if(auth()->user()->workspaces->find($request->workspace_id)->pivot->role != 'owner') {
             return redirect()->back();
         }
 

@@ -127,5 +127,4 @@ class WorkspaceController extends Controller
 
         return redirect()->route('viewWorkspace', [Auth::user()->workspaces->first()->id]);
     }
-
 }

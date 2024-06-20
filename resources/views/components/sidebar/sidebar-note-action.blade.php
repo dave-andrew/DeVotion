@@ -3,17 +3,18 @@
      @click.outside="action = false"
      x-on:mouseenter="action=true"
      x-on:mouseleave="action=false">
+
     <form action="{{route('duplicateNote', $workspace->id)}}" method="POST">
         @csrf
         <label>
-            <input name="note_id" value="{{$note->id}}" hidden />
+            <input name="note_id" value="{{$note->id}}" type="hidden" />
         </label>
 
         <label>
-            <input name="teamspace_id" value="{{ $team->id }}" hidden />
+            <input name="teamspace_id" value="{{ $team->id }}" type="hidden" />
         </label>
 
-        <button class="w-full" type="submit">
+        <button type="submit" class="w-full">
             <div class="sidebar-row justify-between mb-1">
                 <div class="flex items-center">
                     <i class="fa-regular fa-clone"></i>
@@ -22,6 +23,7 @@
             </div>
         </button>
     </form>
+
     <div class="sidebar-row justify-between mb-1">
         <div class="flex items-center">
             <i class="fa-regular fa-pen-to-square"></i>
@@ -30,18 +32,19 @@
         <p class="text-xs text-gray-400">Ctrl+Alt+R</p>
     </div>
     @can('note-delete', $workspace)
-        <form action="{{route('deleteNote', $workspace->id)}}" method="POST">
+        <form id="note-delete" action="{{route('deleteNote', $workspace->id)}}" method="POST">
             @csrf
             @method('DELETE')
             <label>
                 <input name="note_id" hidden value="{{$note->id}}"/>
             </label>
             <button type="submit" class="w-full">
-                <div class="sidebar-row mb-1">
+                <div class="sidebar-row mb-1 justify-between">
                     <div class="flex items-center">
                         <i class="fa-regular fa-trash-can"></i>
                         <p class="ml-2">Delete</p>
                     </div>
+                    <p class="text-xs text-gray-400">Ctrl+Alt+D</p>
                 </div>
             </button>
         </form>
@@ -67,9 +70,21 @@
         window.open(currentUrl, '_blank');
     }
 
+    function deleteNote() {
+        document.getElementById("note-delete").submit();
+    }
+
     document.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.altKey && (event.key === 'n' || event.key === 'N')) {
             openInNewTab();
         }
     });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.altKey && (event.key === 'd' || event.key === 'D')) {
+            deleteNote();
+        }
+    });
+
+
 </script>

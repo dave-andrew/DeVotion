@@ -19,7 +19,6 @@ class checkCreateNoteAuthorization
      */
     public function handle(Request $request, Closure $next)
     {
-;
         $workspace = Workspace::find($request->workspace_id);
 
         if(!$workspace) {

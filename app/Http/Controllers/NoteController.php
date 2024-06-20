@@ -46,6 +46,7 @@ class NoteController extends Controller
         $note = Note::find($request->note_id);
 
         $newNote = $note->replicate();
+        $newNote->save();
 
         $notedetail = $note->notedetails;
 

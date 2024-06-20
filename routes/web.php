@@ -33,7 +33,7 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->name('viewWorkspace');
 
     Route::post('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])
-        ->name('viewWorkspace');
+        ->name('viewWorkspaceNote');
 
     Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
         ->middleware('checkInviteAuthorization')

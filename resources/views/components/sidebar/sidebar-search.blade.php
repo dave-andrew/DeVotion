@@ -17,13 +17,17 @@
                     <h1 class="text-gray-500 font-bold opacity-70" x-text="team.name"></h1>
 
                     <template x-for="note in team.notes" :key="note.id">
-                        <a href=""
+                        <form action="{{route('viewWorkspaceNote', $workspace->id)}}" method="POST"
                            class="w-full pl-4 py-2 flex items-center flex-shrink-0 flex-grow rounded-md hover:bg-stone-200 hover:cursor-pointer transition-all duration-300">
+                            @csrf
+                            <label>
+                                <input type="hidden" name="note_id" x-bind:value="note.id">
+                            </label>
                             <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
                             <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
-                                <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden" x-text="note.title"></div>
+                                <button type="submit" class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden" x-text="note.title"></button>
                             </div>
-                        </a>
+                        </form>
                     </template>
                 </div>
             </template>

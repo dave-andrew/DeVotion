@@ -67,7 +67,7 @@
 
                 <div id="teamspace-notes-{{ $counter }}">
                     @foreach ($team->notes as $note)
-                        <form action="{{route('viewWorkspace', $workspace->id)}}" method="POST">
+                        <form action="{{route('viewWorkspaceNote', $workspace->id)}}" method="POST">
                             @csrf
 
                             <label>

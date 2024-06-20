@@ -5,14 +5,14 @@
     @endauth
 
     @foreach(\Illuminate\Support\Facades\Auth::user()->workspaces as $workspace)
-        <a class="sidebar-row mb-1" href="{{route('viewWorkspace', $workspace->id)}}">
+        <form class="sidebar-row mb-1" action="{{route('viewWorkspace', $workspace->id)}}" method="GET">
             <div class="mr-2">
                 <i class="fa-regular fa-building"></i>
             </div>
-            <div>
+            <button type="submit">
                 {{ $workspace->name }}
-            </div>
-        </a>
+            </button>
+        </form>
     @endforeach
     <hr>
     <div class="flex flex-col px-4 py-2">

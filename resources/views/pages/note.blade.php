@@ -6,7 +6,7 @@
     <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
         <div class="max-w-xl w-full mx-auto">
             <label>
-                <textarea id="note-title" class="text-4xl font-bold textarea p-4 ring-0 rounded-md" type="text"></textarea>
+                <textarea id="note-title" class="text-4xl font-bold textarea p-4 ring-0 rounded-md" type="text" rows="1"></textarea>
             </label>
 
             @foreach($note->notedetails as $data)

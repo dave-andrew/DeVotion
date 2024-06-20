@@ -26,8 +26,6 @@ class checkCreateNoteAuthorization
             return redirect()->back()->withErrors('Something went wrong, please try again.');
         }
 
-        $note = Note::find($request->note_id);
-
         $teamspace = Teamspace::find($request->teamspace_id);
         $data = $workspace->users->find(auth()->user()->id);
 

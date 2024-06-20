@@ -65,31 +65,33 @@
                     @endcan
                 </div>
 
-                <div id="teamspace-notes-{{ $counter }}" x-data="{ action: false }" x-cloak>
+                <div id="teamspace-notes-{{ $counter }}">
                     @foreach ($team->notes as $note)
-                        <a class="relative group sidebar-row my-1">
-                            <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
-                            <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
-                                <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
-                                    {{ $note->title }}
-                                </div>
-                            </div>
-                            <object class="" data="" type="">
-                                <div class="ml-auto text-sm">
-                                    <div class="ml-auto text-sm flex items-center">
-                                        <button x-on:click="action=true"
-                                                class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                                            <i class="fa-solid fa-ellipsis fa-sm"></i>
-                                        </button>
-                                        <a href="/create"
-                                           class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                                            <i class="fa-solid fa-plus fa-sm"></i>
-                                        </a>
+                        <div x-data="{ action: false }" x-cloak>
+                            <a class="relative group sidebar-row my-1">
+                                <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
+                                <div class="flex items-center flex-1 text-nowrap text-clip overflow-hidden">
+                                    <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
+                                        {{ $note->title }}
                                     </div>
                                 </div>
-                            </object>
-                        </a>
-                        @include('components.sidebar.sidebar-note-action')
+                                <object class="" data="" type="">
+                                    <div class="ml-auto text-sm">
+                                        <div class="ml-auto text-sm flex items-center">
+                                            <button x-on:click="action=true"
+                                                    class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
+                                                <i class="fa-solid fa-ellipsis fa-sm"></i>
+                                            </button>
+                                            <a href="/create"
+                                               class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
+                                                <i class="fa-solid fa-plus fa-sm"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </object>
+                            </a>
+                            @include('components.sidebar.sidebar-note-action')
+                        </div>
                     @endforeach
                 </div>
             @endforeach

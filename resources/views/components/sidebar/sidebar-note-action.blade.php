@@ -1,23 +1,22 @@
 <div x-show="action"
-     class="z-10 absolute -right-56 w-72 pt-2 bg-white rounded-md shadow-lg text-black text-sm font-normal"
+     class="z-10 absolute -right-56 w-72 pt-2 bg-white rounded-md shadow-lg text-black text-sm font-normal flex flex-col"
      @click.outside="action = false">
     <form action="{{route('duplicateNote', $workspace->id)}}" method="POST">
         @csrf
         <label>
-            <input name="note_id" hidden value="{{$note->id}}"/>
+            <input name="note_id" value="{{$note->id}}" hidden />
         </label>
 
         <label>
-            <input name="teamspace_id" value="{{ $team->id }}" hidden/>
+            <input name="teamspace_id" value="{{ $team->id }}" hidden />
         </label>
 
-        <button class="w-full">
+        <button class="w-full" type="submit">
             <div class="sidebar-row justify-between mb-1">
                 <div class="flex items-center">
                     <i class="fa-regular fa-clone"></i>
                     <p class="ml-2">Duplicate</p>
                 </div>
-                <p class="text-xs text-gray-400">Ctrl+Alt+D</p>
             </div>
         </button>
     </form>
@@ -69,13 +68,6 @@
     document.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.altKey && (event.key === 'n' || event.key === 'N')) {
             openInNewTab();
-        }
-    });
-
-    document.addEventListener('keydown', function(event) {
-        if (event.ctrlKey && event.altKey && (event.key === 'd' || event.key === 'D')) {
-            const form = document.querySelector('form[action="{{route('duplicateNote', $workspace->id)}}"]');
-            form.submit();
         }
     });
 </script>

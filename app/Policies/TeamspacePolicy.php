@@ -62,9 +62,17 @@ class TeamspacePolicy
      * @param  \App\Models\Teamspace  $teamspace
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Workspace $workspace)
+    public function update(User $user, Workspace $workspace, Teamspace $teamspace)
     {
-        return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
+        if($teamspace->permission == 'private') {
+            return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
+        }
+
+        if($teamspace->permission == 'public') {
+            return $workspace->users->contains($user->id);
+        }
+
+        return false;
     }
 
     /**

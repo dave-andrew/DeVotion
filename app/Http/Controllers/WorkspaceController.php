@@ -65,9 +65,8 @@ class WorkspaceController extends Controller
 
     public function get() {
         $workspaces = Workspace::find(auth()->user()->pluck('id'));
-        $users = $workspaces->users();
-        $teamspaces = $workspaces->teamspaces();
-        return view('pages.notes', compact('workspaces', 'users', 'teamspaces'));
+
+        return view('pages.notes', compact('workspaces'));
     }
 
     public function create(Request $request)
@@ -149,7 +148,9 @@ class WorkspaceController extends Controller
             return redirect()->route('viewCreateWorkspace.type');
         }
 
-        return view('pages.note', compact('workspace'));
+        $note = $workspace->teamspaces->first()->notes->first();
+
+        return view('pages.note', compact('workspace', 'note'));
     }
 
     public function deleteWorkspace(Request $request) {

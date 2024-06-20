@@ -38,9 +38,15 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
     Route::post('/{workspace_id}/roles', [WorkspaceuserController::class, 'promote'])
         ->middleware('checkPromoteAuthorization')
         ->name('promoteUser');
-});
 
-Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])->name('createNote');
+    Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])
+        ->middleware('checkCreateNoteAuthorization')
+        ->name('createNote');
+
+    Route::delete('/{workspace_id}/deleteNote', [NoteController::class,'delete'])
+        ->middleware('checkInviteAuthorization')
+        ->name('deleteNote');
+});
 
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
 
@@ -54,9 +60,6 @@ Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name(
 Route::put('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
 Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
 Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
-
-// TODO: NOT YET DONE
-Route::get('/search-notes', [NoteController::class, 'search'])->name('notes.search');
 
 Route::middleware('checkInvitation')->group(function () {
     Route::post('/accept-invitation', [InvitationController::class, 'accept'])->name('invitation.accept');

@@ -41,7 +41,7 @@
         @endcan
 
         {{-- Teamspace --}}
-        <div class="flex flex-col text-gray-400 font-semibold">
+        <div class="flex flex-col text-gray-400 font-semibold overflow-y-scroll no-scrollbar">
             @foreach ($workspace->teamspaces as $team)
                 @cannot('teamspace-view', [$workspace, $team])
                     @continue
@@ -49,19 +49,20 @@
                 <div class="group sidebar-row flex items-center justify-between mt-2 text-sm">
                     @php($counter++)
                     <h1 onclick="hideNotes({{ $counter }})">{{ $team->name }}</h1>
-                    <form action="{{ route('createNote', $workspace->id) }}" method="post"
-                          class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                        @csrf
-                        <label>
-                            <input name="teamspace_id" value="{{ $team->id }}" hidden/>
-                        </label>
-                        <label>
-                            <input name="workspace_id" value="{{ $workspace->id }}" hidden/>
-                        </label>
-                        <button type="submit">
-                            <i class="fa-solid fa-plus fa-sm"></i>
-                        </button>
-                    </form>
+                    @can('teamspace-update', [$workspace, $team])
+                        <form action="{{ route('createNote', $workspace->id) }}" method="post" class="group-hover:flex hidden">
+                            @csrf
+                            <label>
+                                <input name="teamspace_id" value="{{ $team->id }}" hidden/>
+                            </label>
+                            <label>
+                                <input name="workspace_id" value="{{ $workspace->id }}" hidden/>
+                            </label>
+                            <button type="submit">
+                                <i class="fa-solid fa-plus fa-sm"></i>
+                            </button>
+                        </form>
+                    @endcan
                 </div>
 
                 <div id="teamspace-notes-{{ $counter }}" x-data="{ action: false }" x-cloak>
@@ -74,14 +75,14 @@
                                 </div>
                             </div>
                             <object class="" data="" type="">
-                                <div class=" ml-auto text-sm">
+                                <div class="ml-auto text-sm">
                                     <div class="ml-auto text-sm flex items-center">
                                         <button x-on:click="action=true"
-                                                class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                                class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
                                             <i class="fa-solid fa-ellipsis fa-sm"></i>
                                         </button>
                                         <a href="/create"
-                                           class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300 ">
+                                           class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
                                             <i class="fa-solid fa-plus fa-sm"></i>
                                         </a>
                                     </div>

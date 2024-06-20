@@ -44,7 +44,15 @@ class NotePolicy
      */
     public function create(User $user, Teamspace $teamspace)
     {
-        return $teamspace->permission == "open";
+        if($teamspace->permission == 'public') {
+            return true;
+        }
+
+        if($teamspace->permission == 'private' && $teamspace->workspaces()->users->find($user->id)->pivot->role == 'owner') {
+            return true;
+        }
+
+        return $teamspace->workspaces()->users->find($user->id)->pivot->role == 'admin' || $teamspace->workspaces()->users->find($user->id)->pivot->role == 'owner';
     }
 
     /**
@@ -63,12 +71,12 @@ class NotePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Note  $note
+     * @param  \App\Models\Workspace  $workspace
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Note $note)
+    public function delete(User $user, Workspace $workspace)
     {
-        //
+        return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
     }
 
     /**

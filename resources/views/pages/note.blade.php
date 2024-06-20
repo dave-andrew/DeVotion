@@ -3,14 +3,24 @@
 @section('title', 'Workspace')
 
 @section('content')
-    <div class="min-h-screen flex flex-grow py-20">
+    <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
         <div class="max-w-xl w-full mx-auto">
-            {{-- Title --}}
-            <textarea class=" text-4xl font-bold textarea" type="text" placeholder="Untitled"></textarea>
+            <label>
+                <textarea id="note-title" class="text-4xl font-bold textarea p-4 ring-0 rounded-md" type="text"></textarea>
+            </label>
 
-            @include('components.inputs.h1-input')
-            @include('components.inputs.h2-input')
-            @include('components.inputs.h3-input')
+            @foreach($note->notedetails as $data)
+                @include('components.inputs.general-inputs', ['data' => $data])
+            @endforeach
+
         </div>
     </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const noteTitleInput = document.getElementById('note-title');
+
+        noteTitleInput.value = @json($note->title);
+    });
+</script>

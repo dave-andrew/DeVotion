@@ -22,15 +22,22 @@ class NoteController extends Controller
         return redirect()->back()->with('workspace_id'. $workspace_id);
     }
 
-    public function search(Request $request)
+    public function update(Request $request)
     {
-        $search = $request->search;
-        $workspace_id = $request->workspace_id;
 
-        $notes = Note::where('teamspace_id', $workspace_id)
-            ->where('title', 'like', '%' . $search . '%')
-            ->get();
+    }
 
-        return view('pages.workspace', compact('notes', 'workspace_id'));
+    public function delete(Request $request)
+    {
+        $note = Note::find($request->note_id);
+        $workspace = Workspace::find($request->workspace_id);
+
+        if(Gate::denies('note-delete', $workspace)) {
+            return redirect()->back()->withErrors('You are not authorized to delete this note.');
+        }
+
+        $note->delete();
+
+        return redirect()->back()->with('success', 'Note deleted successfully.');
     }
 }

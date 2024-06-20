@@ -40,4 +40,22 @@ class NoteController extends Controller
 
         return redirect()->back()->with('success', 'Note deleted successfully.');
     }
+
+    public function duplicate(Request $request)
+    {
+        $note = Note::find($request->note_id);
+
+        $newNote = $note->replicate();
+
+        $notedetail = $note->notedetails;
+
+        foreach ($notedetail as $detail) {
+            $detail->replicate();
+            $detail->save();
+        }
+
+        $newNote->save();
+
+        return redirect()->back()->with('success', 'Note duplicated successfully.');
+    }
 }

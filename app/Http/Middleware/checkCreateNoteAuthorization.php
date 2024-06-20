@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Note;
 use App\Models\Teamspace;
 use App\Models\Workspace;
 use Closure;
@@ -20,6 +21,13 @@ class checkCreateNoteAuthorization
     {
 ;
         $workspace = Workspace::find($request->workspace_id);
+
+        if(!$workspace) {
+            return redirect()->back()->withErrors('Something went wrong, please try again.');
+        }
+
+        $note = Note::find($request->note_id);
+
         $teamspace = Teamspace::find($request->teamspace_id);
         $data = $workspace->users->find(auth()->user()->id);
 

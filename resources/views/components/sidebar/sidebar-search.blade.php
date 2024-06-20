@@ -35,7 +35,7 @@
     function searchComponent() {
         return {
             inputSearch: '',
-            teams: @json($workspace->teamspaces), // Assuming this is passed from the backend
+            teams: @json($workspace->teamspaces),
             get filteredTeams() {
                 if (!this.inputSearch) {
                     return this.teams;

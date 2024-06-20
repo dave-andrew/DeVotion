@@ -9,7 +9,7 @@
 
     <form id="roleForm" action="{{ route('promoteUser', $workspace->id) }}" method="POST">
         @csrf
-        <input type="hidden" name="user_id" value="{{$user->id}}" />
+        <input type="hidden" name="user_id" x-bind:value="user.id" />
 
         @can('user-isOwner', $workspace)
             <label>

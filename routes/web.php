@@ -28,8 +28,7 @@ Route::middleware('checkUserLogin')->group(function () {
 });
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
-    Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])
-        ->name('viewWorkspace');
+    Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
 
     Route::post('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])
         ->name('viewWorkspaceNote');

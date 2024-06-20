@@ -149,11 +149,7 @@ class WorkspaceController extends Controller
             return redirect()->route('viewCreateWorkspace.type');
         }
 
-        $note = Note::find($request->note_id);
-
-        if(!$note) {
-            $note = $workspace->teamspaces->first()->notes->first();
-        }
+        $note = $workspace->teamspaces->first()->notes->first();
 
         return view('pages.note', compact('workspace', 'note'));
     }

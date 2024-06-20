@@ -46,7 +46,7 @@
                     return this.users;
                 }
                 const searchLower = this.inputSearchPeople.toLowerCase();
-                return this.users.filter(user => user.username.toLowerCase().includes(searchLower));
+                return this.users.filter(user => user.username.toLowerCase().includes(searchLower) || user.email.toLowerCase().includes(searchLower));
             },
             userRole(role) {
                 switch (role) {

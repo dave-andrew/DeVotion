@@ -76,7 +76,7 @@ class TeamspacePolicy
      */
     public function delete(User $user, Workspace $workspace)
     {
-        return $workspace->users->find($user->id)->pivot->role == 'owner';
+        return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
     }
 
     /**

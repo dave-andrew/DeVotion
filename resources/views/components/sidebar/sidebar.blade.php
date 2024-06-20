@@ -67,37 +67,32 @@
 
                 <div id="teamspace-notes-{{ $counter }}">
                     @foreach ($team->notes as $note)
-                        <form action="{{route('viewWorkspace', $workspace->id)}}">
+                        <form action="{{route('viewWorkspace', $workspace->id)}}" method="POST">
                             @csrf
 
                             <label>
                                 <input name="note_id" value="{{$note->id}}" hidden />
                             </label>
                             <div x-data="{ action: false }" x-cloak>
-                                <a class="relative group sidebar-row my-1">
+                                <div class="relative group sidebar-row my-1 flex items-center">
                                     <i class="fa-regular fa-file-zipper fa-lg mr-2"></i>
-                                    <button class="flex items-center flex-1 text-nowrap text-clip overflow-hidden" type="submit">
+                                    <button id="changeNote" class="flex items-center flex-1 text-nowrap text-clip overflow-hidden" type="submit">
                                         <div class="text-ellipsis text-sm font-medium whitespace-nowrap overflow-hidden">
                                             {{ $note->title }}
                                         </div>
                                     </button>
-                                    <object class="" data="" type="">
-                                        <div class="ml-auto text-sm">
-                                            <div class="ml-auto text-sm flex items-center">
-                                                <button x-on:click="action=true"
-                                                        class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                                                    <i class="fa-solid fa-ellipsis fa-sm"></i>
-                                                </button>
-                                                <a href="/create"
-                                                   class="group-hover:flex hidden justify-center items-center w-5 h-5 mr-1 rounded-sm hover:bg-stone-300">
-                                                    <i class="fa-solid fa-plus fa-sm"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </object>
-                                </a>
+                                    <div class="ml-auto text-sm flex items-center space-x-1">
+                                        <button x-on:mouseenter="action=true" x-on:mouseleave="action=false" id="dialogNote" class="group-hover:flex hidden justify-center items-center w-5 h-5 rounded-sm hover:bg-stone-300">
+                                            <i class="fa-solid fa-ellipsis fa-sm"></i>
+                                        </button>
+{{--                                        <a href="/create" class="group-hover:flex hidden justify-center items-center w-5 h-5 rounded-sm hover:bg-stone-300">--}}
+{{--                                            <i class="fa-solid fa-plus fa-sm"></i>--}}
+{{--                                        </a>--}}
+                                    </div>
+                                </div>
                                 @include('components.sidebar.sidebar-note-action')
                             </div>
+
                         </form>
                     @endforeach
                 </div>
@@ -129,6 +124,10 @@
 
         document.getElementById('workspaceDialogButton').addEventListener('click', openDialog);
         document.getElementById('workspaceDialog').addEventListener('click', closeDialog);
+
+        document.getElementById('changeNote').stopImmediatePropagation()
+        document.getElementById('dialogNote').stopImmediatePropagation()
+
     </script>
 
     {{-- create a toast for displaying errors --}}

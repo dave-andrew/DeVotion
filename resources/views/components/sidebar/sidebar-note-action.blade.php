@@ -1,6 +1,8 @@
 <div x-show="action"
-     class="z-10 absolute -right-56 w-72 pt-2 bg-white rounded-md shadow-lg text-black text-sm font-normal flex flex-col"
-     @click.outside="action = false">
+     class="z-10 absolute -right-56 mt-[-10px] w-72 pt-2 bg-white rounded-md shadow-lg text-black text-sm font-normal flex flex-col"
+     @click.outside="action = false"
+     x-on:mouseenter="action=true"
+     x-on:mouseleave="action=false">
     <form action="{{route('duplicateNote', $workspace->id)}}" method="POST">
         @csrf
         <label>

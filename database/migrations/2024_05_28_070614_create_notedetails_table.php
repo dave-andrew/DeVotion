@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignUuid('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->string('content')->nullable();
             $table->string('type');
+            $table->integer('order');
             $table->timestamps();
         });
     }

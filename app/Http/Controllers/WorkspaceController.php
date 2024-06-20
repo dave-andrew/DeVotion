@@ -125,6 +125,7 @@ class WorkspaceController extends Controller
             $notedetail->note_id = $note->id;
             $notedetail->content = 'This is your starting notedetail to learn what our feature is!';
             $notedetail->type = 'text';
+            $notedetail->order = 0;
             $notedetail->save();
 
             DB::commit();

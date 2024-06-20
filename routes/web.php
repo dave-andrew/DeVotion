@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TeamspaceController;
 use App\Http\Controllers\UserController;
-use \Illuminate\Support\Facades\Auth;
 use \App\Http\Controllers\WorkspaceController;
 use \App\Http\Controllers\InvitationController;
 use \App\Http\Controllers\WorkspaceuserController;
@@ -83,7 +82,7 @@ Route::middleware('checkUserIsLogin')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::fallback(function () {
-        return view('');
+        return view('404');
     });
 });
 

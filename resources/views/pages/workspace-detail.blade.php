@@ -11,7 +11,7 @@
         @elseif($type == 'personal')
             <h1 class="text-2xl font-bold text-gray-500">Help you stay organized</h1>
         @endif
-        <form action="{{ route('createWorkspace') }}" method="post" class="pt-[10vh] w-full">
+        <form action="{{ route('createWorkspace') }}" method="POST" class="pt-[10vh] w-full">
             @csrf
             <div class="flex flex-col items-center">
                 <label for="image" class="flex flex-col justify-center mb-6 cursor-pointer">

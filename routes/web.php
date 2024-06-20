@@ -5,9 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TeamspaceController;
 use App\Http\Controllers\UserController;
-use \App\Http\Controllers\WorkspaceController;
-use \App\Http\Controllers\InvitationController;
-use \App\Http\Controllers\WorkspaceuserController;
+use App\Http\Controllers\WorkspaceController;
+use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\WorkspaceuserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,19 +54,6 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->name('deleteNote');
 });
 
-Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
-
-Route::put('/{workspace_id}', [WorkspaceController::class, 'updateWorkspace'])
-    ->name('updateWorkspace');
-Route::delete('/{workspace_id}', [WorkspaceController::class, 'deleteWorkspace'])
-    ->name('deleteWorkspace');
-
-// User Accounts
-Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
-Route::put('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
-Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
-Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
-
 Route::middleware('checkInvitation')->group(function () {
     Route::post('/accept-invitation', [InvitationController::class, 'accept'])->name('invitation.accept');
     Route::post('/decline-invitation', [InvitationController::class, 'decline'])->name('invitation.decline');
@@ -76,12 +63,24 @@ Route::middleware('checkUserIsLogin')->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');
     Route::get('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');
 
-    Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('createWorkspace');
+    Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('create.workspace');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::fallback(function () {
-        return view('404');
+        return redirect()->route('viewWorkspace');
     });
 });
 
+Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
+
+Route::post('/{workspace_id}/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])
+    ->name('updateWorkspace');
+Route::delete('/{workspace_id}/deleteWorkspace', [WorkspaceController::class, 'deleteWorkspace'])
+    ->name('deleteWorkspace');
+
+// User Accounts
+Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
+Route::put('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
+Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
+Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');

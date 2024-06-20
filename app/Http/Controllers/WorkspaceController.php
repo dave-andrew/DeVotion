@@ -131,12 +131,11 @@ class WorkspaceController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('viewWorkspace', [$workspace->id])
+                ->route('viewWorkspace', $workspace->id)
                 ->with('success', 'Workspace created successfully.');
 
         } catch (\Exception $e) {
             DB::rollBack();
-
             return redirect()->route('viewCreateWorkspace.type')->withErrors('There was an error creating the workspace. Please try again.')->withInput();
         }
     }

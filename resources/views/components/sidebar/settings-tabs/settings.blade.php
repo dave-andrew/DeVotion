@@ -4,7 +4,6 @@
     @can('workspace-update', $workspace)
         <form class="my-4" action="{{route('updateWorkspace', [$workspace->id])}}" method="POST">
             @csrf
-            @method('PUT')
             <h1 class="text-gray-500 text-xs">Name</h1>
             <label for="workspaceName"></label><input id="workspaceName" name="workspaceName" class="max-w-72 w-full mr-2 my-1 px-2 py-1 text-sm rounded-sm ring-1 ring-gray-300 border-none outline-none" type="text">
             <button class="px-4 py-1.5 rounded-sm ring-1 ring-gray-300 text-gray-500 text-sm font-medium hover:bg-gray-100" type="submit">Save</button>

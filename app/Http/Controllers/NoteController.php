@@ -48,6 +48,7 @@ class NoteController extends Controller
 
     public function duplicate(Request $request)
     {
+        dd($request->all());
         $note = Note::find($request->note_id);
 
         $newNote = new Note();
@@ -56,6 +57,10 @@ class NoteController extends Controller
         $newNote->save();
 
         $notedetail = $note->notedetails;
+
+        if(!$notedetail) {
+            return redirect()->back()->with('success', 'Note duplicated successfully.');
+        }
 
         foreach ($notedetail as $detail) {
             $newDetail = new Notedetail();

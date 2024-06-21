@@ -30,11 +30,9 @@ Route::middleware('checkUserLogin')->group(function () {
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
 
-    Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
-        ->name('viewWorkspaceNote');
-
-    Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
-        ->name('viewWorkspaceNote');
+    Route::post('/{workspace_id}/duplicateNote', [NoteController::class,'duplicate'])
+        ->middleware('checkCreateNoteAuthorization')
+        ->name('duplicateNote');
 
     Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
         ->middleware('checkInviteAuthorization')
@@ -44,9 +42,6 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->middleware('checkPromoteAuthorization')
         ->name('promoteUser');
 
-    Route::post('/{workspace_id}/duplicateNote', [NoteController::class,'duplicate'])
-        ->name('duplicateNote');
-
     Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])
         ->middleware('checkCreateNoteAuthorization')
         ->name('createNote');
@@ -54,6 +49,12 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
     Route::delete('/{workspace_id}/deleteNote', [NoteController::class,'delete'])
         ->middleware('checkInviteAuthorization')
         ->name('deleteNote');
+
+//    Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
+//        ->name('viewWorkspaceNote');
+
+    Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
+        ->name('viewWorkspaceNote');
 });
 
 Route::middleware('checkInvitation')->group(function () {

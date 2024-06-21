@@ -3,11 +3,10 @@
      @click.outside="action = false"
      x-on:mouseenter="action=true"
      x-on:mouseleave="action=false">
-    <form action="{{route('duplicateNote', $workspace->id)}}" method="POST">
+    <form action="{{ route('duplicateNote', $workspace->id) }}" method="POST">
         @csrf
-        @method('POST')
         <label>
-            <input name="note_id" value="{{$note->id}}" type="hidden" />
+            <input name="note_id" value="{{ $note->id }}" type="hidden" />
         </label>
 
         <label>

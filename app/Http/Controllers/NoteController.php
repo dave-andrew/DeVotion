@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\Notedetail;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,7 @@ class NoteController extends Controller
 
         $note->save();
 
-        $workspace_id = $request->workspace_id;
-
-        return redirect()->back()->with('workspace_id'. $workspace_id);
+        return redirect()->route('viewWorkspaceNote', ['workspace_id' => $request->workspace_id, 'note_id' => $note->id]);
     }
 
     public function update(Request $request)
@@ -36,22 +35,35 @@ class NoteController extends Controller
             return redirect()->back()->withErrors('You are not authorized to delete this note.');
         }
 
+        $teamspace = $note->teamspace;
+
         $note->delete();
 
-        return redirect()->back()->with('success', 'Note deleted successfully.');
+        if($teamspace->notes->count() == 0) {
+            $teamspace->delete();
+        }
+
+        return redirect()->route('viewWorkspace', $request->workspace_id);
     }
 
     public function duplicate(Request $request)
     {
         $note = Note::find($request->note_id);
 
-        $newNote = $note->replicate();
+        $newNote = new Note();
+        $newNote->title = $note->title;
+        $newNote->teamspace_id = $note->teamspace_id;
+        $newNote->save();
 
         $notedetail = $note->notedetails;
 
         foreach ($notedetail as $detail) {
-            $detail->replicate();
-            $detail->save();
+            $newDetail = new Notedetail();
+            $newDetail->note_id = $newNote->id;
+            $newDetail->content = $detail->content;
+            $newDetail->type = $detail->type;
+            $newDetail->order = $detail->order;
+            $newDetail->save();
         }
 
         $newNote->save();

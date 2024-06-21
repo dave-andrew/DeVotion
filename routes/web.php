@@ -30,7 +30,10 @@ Route::middleware('checkUserLogin')->group(function () {
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
 
-    Route::post('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])
+    Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
+        ->name('viewWorkspaceNote');
+
+    Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
         ->name('viewWorkspaceNote');
 
     Route::post('/{workspace_id}/invite', [InvitationController::class, 'create'])
@@ -41,13 +44,12 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->middleware('checkPromoteAuthorization')
         ->name('promoteUser');
 
+    Route::post('/{workspace_id}/duplicateNote', [NoteController::class,'duplicate'])
+        ->name('duplicateNote');
+
     Route::post('/{workspace_id}/createNote', [NoteController::class,'create'])
         ->middleware('checkCreateNoteAuthorization')
         ->name('createNote');
-
-    Route::post('/{workspace_id}/duplicateNote', [NoteController::class,'duplicate'])
-        ->middleware('checkCreateNoteAuthorization')
-        ->name('duplicateNote');
 
     Route::delete('/{workspace_id}/deleteNote', [NoteController::class,'delete'])
         ->middleware('checkInviteAuthorization')
@@ -59,17 +61,13 @@ Route::middleware('checkInvitation')->group(function () {
     Route::post('/decline-invitation', [InvitationController::class, 'decline'])->name('invitation.decline');
 });
 
-Route::middleware('checkUserIsLogin')->group(function() {
+Route::middleware(['checkUserIsLogin'])->group(function() {
     Route::get('/create-workspace/1', [WorkspaceController::class, 'workspaceType'])->name('viewCreateWorkspace.type');
     Route::get('/create-workspace/2', [WorkspaceController::class, 'workspaceDetail'])->name('viewCreateWorkspace.detail');
 
-    Route::post('/create-workspace', [WorkspaceController::class, 'create'])->name('create.workspace');
+    Route::post('/create-workspace', [WorkspaceController::class, 'store'])->name('create.workspace');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    Route::fallback(function () {
-        return redirect()->route('viewWorkspace');
-    });
 });
 
 Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');

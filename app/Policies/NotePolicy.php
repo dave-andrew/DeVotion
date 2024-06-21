@@ -42,17 +42,17 @@ class NotePolicy
      * @param  \App\Models\Teamspace $teamspace
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, Teamspace $teamspace)
+    public function create(User $user, Workspace $workspace, Teamspace $teamspace)
     {
         if($teamspace->permission == 'public') {
             return true;
         }
 
-        if($teamspace->permission == 'private' && $teamspace->workspaces()->users->find($user->id)->pivot->role == 'owner') {
+        if($teamspace->permission == 'private' && $workspace->users->find($user->id)->pivot->role == 'owner') {
             return true;
         }
 
-        return $teamspace->workspaces()->users->find($user->id)->pivot->role == 'admin' || $teamspace->workspaces()->users->find($user->id)->pivot->role == 'owner';
+        return $workspace->users->find($user->id)->pivot->role == 'admin' || $workspace->users->find($user->id)->pivot->role == 'owner';
     }
 
     /**

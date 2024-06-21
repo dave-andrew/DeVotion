@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('user-isAdminOrOwner', [WorkspacePolicy::class, 'isAdminOrOwner']);
 
         # Notes
+        Gate::define('note-create', [NotePolicy::class, 'create']);
         Gate::define('note-delete', [NotePolicy::class, 'delete']);
     }
 }

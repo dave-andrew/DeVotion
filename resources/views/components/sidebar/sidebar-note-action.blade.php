@@ -5,12 +5,13 @@
      x-on:mouseleave="action=false">
     <form action="{{route('duplicateNote', $workspace->id)}}" method="POST">
         @csrf
+        @method('POST')
         <label>
-            <input name="note_id" value="{{$note->id}}" hidden />
+            <input name="note_id" value="{{$note->id}}" type="hidden" />
         </label>
 
         <label>
-            <input name="teamspace_id" value="{{ $team->id }}" hidden />
+            <input name="teamspace_id" value="{{ $team->id }}" type="hidden" />
         </label>
 
         <button class="w-full" type="submit">
@@ -37,11 +38,12 @@
                 <input name="note_id" hidden value="{{$note->id}}"/>
             </label>
             <button type="submit" class="w-full">
-                <div class="sidebar-row mb-1">
+                <div class="sidebar-row justify-between mb-1">
                     <div class="flex items-center">
                         <i class="fa-regular fa-trash-can"></i>
                         <p class="ml-2">Delete</p>
                     </div>
+                    <p class="text-xs text-gray-400">Ctrl+Alt+D</p>
                 </div>
             </button>
         </form>
@@ -70,6 +72,12 @@
     document.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.altKey && (event.key === 'n' || event.key === 'N')) {
             openInNewTab();
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.altKey && (event.key === 'd' || event.key === 'D')) {
+            document.querySelector('form[action="{{route('deleteNote', $workspace->id)}}').submit();
         }
     });
 </script>

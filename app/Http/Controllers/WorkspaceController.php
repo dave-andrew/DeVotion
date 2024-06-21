@@ -69,7 +69,7 @@ class WorkspaceController extends Controller
         return view('pages.notes', compact('workspaces'));
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $messages = [
             'required' => 'The :attribute field is required.',
@@ -149,6 +149,18 @@ class WorkspaceController extends Controller
         }
 
         $note = $workspace->teamspaces->first()->notes->first();
+
+        return view('pages.note', compact('workspace', 'note'));
+    }
+
+    public function viewWorkspaceNote(Request $request) {
+        $workspace = Workspace::find($request->workspace_id);
+
+        if(!$workspace) {
+            return redirect()->route('viewCreateWorkspace.type');
+        }
+
+        $note = Note::find($request->note_id);
 
         return view('pages.note', compact('workspace', 'note'));
     }

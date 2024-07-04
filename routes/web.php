@@ -55,7 +55,7 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
    Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
        ->name('viewWorkspaceNote');
 
-    Route::post('/{workspace_id}/note/{note_id}/test', [WorkspaceController::class, 'viewWorkspaceNote'])
+    Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
         ->name('viewWorkspaceNote');
 });
 

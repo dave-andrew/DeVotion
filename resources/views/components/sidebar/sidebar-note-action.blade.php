@@ -6,7 +6,7 @@
     <form action="{{ route('duplicateNote', $workspace->id) }}" method="POST">
         @csrf
         <label>
-            <input name="note_id" value="{{ $note->id }}" type="hidden" />
+            <input name="note_id" hidden value="{{$note->id}}"/>
         </label>
 
         <label>

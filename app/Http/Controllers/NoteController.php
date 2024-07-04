@@ -48,7 +48,6 @@ class NoteController extends Controller
 
     public function duplicate(Request $request)
     {
-        dd($request->all());
         $note = Note::find($request->note_id);
 
         $newNote = new Note();

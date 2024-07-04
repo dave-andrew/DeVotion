@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\WorkspaceuserController;
+use Illuminate\Support\Facades\Log;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +32,7 @@ Route::middleware('checkUserLogin')->group(function () {
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
 
-    Route::post('/{workspace_id}/duplicateNote', [NoteController::class,'duplicate'])
+    Route::post('/duplicateNote/{workspace_id}', [NoteController::class,'duplicate'])
         ->middleware('checkCreateNoteAuthorization')
         ->name('duplicateNote');
 
@@ -50,10 +52,10 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->middleware('checkInviteAuthorization')
         ->name('deleteNote');
 
-//    Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
-//        ->name('viewWorkspaceNote');
+   Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
+       ->name('viewWorkspaceNote');
 
-    Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
+    Route::post('/{workspace_id}/note/{note_id}/test', [WorkspaceController::class, 'viewWorkspaceNote'])
         ->name('viewWorkspaceNote');
 });
 

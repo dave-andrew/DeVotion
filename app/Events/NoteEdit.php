@@ -21,7 +21,7 @@ class NoteEdit implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($note)
+    public function __construct($note, $user)
     {
         $this->note = $note;
     }

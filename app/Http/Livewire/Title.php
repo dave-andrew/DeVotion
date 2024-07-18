@@ -10,14 +10,18 @@ class Title extends Component
 {
     public $note;
     public $title;
-
+    private $count = 0;
     public $listeners = ['note-edit' => 'update'];
 
     public function update($note)
     {
-        $id = $note['id'];
-        $this->title = $note['title'];
-        $this->note = Note::find($id);
+        if ($this->count == 0) {
+            $id = $note['id'];
+            $this->title = $note['title'];
+            $this->note = Note::find($id);
+        }else{
+            $this->count = 0;
+        }
     }
 
     public function mount($note)
@@ -30,7 +34,8 @@ class Title extends Component
     {
         $this->note->title = $this->title;
         $this->note->save();
-        NoteEdit::dispatch($this->note);
+        $this->count = 1;
+        NoteEdit::dispatch($this->note, auth()->user());
     }
 
     public function render()

@@ -11,14 +11,19 @@ class NoteDetail extends Component
 {
     public $content;
     public $detail;
+    public $count = 0;
 
     public $listeners = ['note-detail-edit' => 'update'];
 
     public function update($detail)
     {
-        $id = $detail['id'];
-        $this->content = $detail['content'];
-        $this->detail = ModelsNotedetail::find($id);
+        if($this->count == 0){
+            $id = $detail['id'];
+            $this->content = $detail['content'];
+            $this->detail = ModelsNotedetail::find($id);
+        }else{
+            $this->count = 0;
+        }
     }
 
     public function mount($detail)
@@ -31,6 +36,7 @@ class NoteDetail extends Component
     {
         $this->detail->content = $this->content;
         $this->detail->save();
+        $this->count = 1;
         NoteDetailEdit::dispatch($this->detail);
     }
 

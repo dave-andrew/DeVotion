@@ -163,7 +163,7 @@ class WorkspaceController extends Controller
 
         $note = Note::find($request->note_id);
 
-        NoteEdit::dispatch($note);
+       NoteEdit::dispatch($note);
 
         return view('pages.note', compact('workspace', 'note'));
     }

@@ -1,15 +1,8 @@
-import './bootstrap';
-import 'flowbite';
-
 document.addEventListener("DOMContentLoaded", function() {
-    function generateRandomID() {
-        return 'textarea-' + Math.random().toString(36).substr(2, 9);
-    }
 
     const textareas = document.querySelectorAll("textarea");
 
     textareas.forEach(textarea => {
-        textarea.id = generateRandomID();
 
         function autoResize(textarea) {
             textarea.style.height = "auto";
@@ -19,5 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
         autoResize(textarea);
 
         textarea.addEventListener("input", () => autoResize(textarea));
+
+        // Set up interval to continuously check and update textarea height
+        setInterval(() => {
+            autoResize(textarea);
+        }, 1); // 1000 milliseconds = 1 second
     });
 });
+

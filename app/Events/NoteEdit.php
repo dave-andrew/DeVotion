@@ -26,6 +26,13 @@ class NoteEdit implements ShouldBroadcast
         $this->note = $note;
     }
 
+    public function broadcastWith()
+    {
+        return [
+            'note' => $this->note,
+        ];
+    }
+
     /**
      * Get the channels the event should broadcast on.
      *

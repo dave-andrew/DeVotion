@@ -34,13 +34,9 @@ class NoteController extends Controller
         $note->title = $request->title;
         $note->save();
 
-        $details = $note->notedetails;
-        $details->content = $request->contents;
-        $details->order = $request->order;
-        $details->type = $request->type;
-        $details->save();
+        NoteEdit::dispatch($note);
 
-        return redirect()->back()->with('success', 'Note updated successfully.');
+        return redirect()->back();
     }
 
     public function delete(Request $request)

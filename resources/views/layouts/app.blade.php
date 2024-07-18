@@ -10,6 +10,7 @@
     <link rel="icon" href="/Notion_app_logo_D.png" type="image/png">
 
     <title>DeVotion | @yield('title')</title>
+    @livewireStyles
 </head>
 <style>
     [x-cloak] {
@@ -24,6 +25,8 @@
         @endauth
         @yield('content')
     </div>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    @livewireScripts
 </body>
 
 </html>

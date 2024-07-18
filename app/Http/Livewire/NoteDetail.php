@@ -7,31 +7,32 @@ use Livewire\Component;
 
 class NoteDetail extends Component
 {
-    public $contents;
-    public $notedetail;
+    public $contents = [];
+    public $notedetails = [];
 
     public $listeners = ['note-edit' => 'update'];
 
-    public function update($notedetail)
+    public function update($notedetail, $note)
     {
-        $notedetail = $notedetail[0];
-        $id = $notedetail['id'];
-        $this->contents = $notedetail['content'];
-        $this->notedetail = \App\Models\Notedetail::find($id);
+        foreach ($note['notedetails'] as $key => $detail) {
+            $this->contents[$detail['id']] = $detail['content'];
+            $this->notedetails[$key] = \App\Models\Notedetail::find($detail['id']);
+        }
     }
 
-    public function mount($notedetail)
+    public function mount($note)
     {
-        $this->notedetail = $notedetail;
-        $this->contents = $notedetail->content;
-//        dd($this->contents);
+        foreach ($note->notedetails as $detail) {
+            $this->contents[$detail->id] = $detail->content;
+            $this->notedetails[] = $detail;
+        }
     }
 
-    public function onChange()
+    public function onChange($id)
     {
-        $this->notedetail->content = $this->contents;
-        $this->notedetail->save();
-        NoteDetailEdit::dispatch($this->notedetail);
+        $this->notedetails[array_search($id, array_column($this->notedetails, 'id'))]->content = $this->contents[$id];
+        $this->notedetails[array_search($id, array_column($this->notedetails, 'id'))]->save();
+        NoteDetailEdit::dispatch($this->notedetails[array_search($id, array_column($this->notedetails, 'id'))]);
     }
 
     public function render()

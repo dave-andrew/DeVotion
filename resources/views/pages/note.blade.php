@@ -13,7 +13,7 @@
         const channel = pusher.subscribe('node-edit-channel.{{$note->id}}');
         channel.bind('node-edit', function(response) {
             window.Livewire.emit('node-edit', response.note);
-            window.Livewire.emit('note-edit', response.note.notedetails)
+            window.Livewire.emit('note-edit', response.note.notedetails, response.note)
             // console.log(response.note.notedetails)
         });
     </script>
@@ -22,9 +22,7 @@
 
             @livewire('title', ['note' => $note])
 
-            @foreach($note->notedetails as $notedetail)
-                @livewire('note-detail', ['notedetail' => $notedetail, 'note' => $note])
-            @endforeach
+            @livewire('note-detail', ['note' => $note])
         </div>
     </div>
 @endsection

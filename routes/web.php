@@ -48,6 +48,10 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->middleware('checkCreateNoteAuthorization')
         ->name('createNote');
 
+    Route::post('/{workspace_id}/updateNote', [NoteController::class,'update'])
+        ->middleware('checkCreateNoteAuthorization')
+        ->name('updateNote');
+
     Route::delete('/{workspace_id}/deleteNote', [NoteController::class,'delete'])
         ->middleware('checkInviteAuthorization')
         ->name('deleteNote');

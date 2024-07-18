@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NoteEdit;
 use App\Models\Note;
 use App\Models\Notedetail;
 use App\Models\Workspace;
@@ -23,7 +24,23 @@ class NoteController extends Controller
 
     public function update(Request $request)
     {
+        $note = Note::find($request->note_id);
+        $workspace = Workspace::find($request->workspace_id);
 
+        if(Gate::denies('note-update', $workspace)) {
+            return redirect()->back()->withErrors('You are not authorized to update this note.');
+        }
+
+        $note->title = $request->title;
+        $note->save();
+
+        $details = $note->notedetails;
+        $details->content = $request->contents;
+        $details->order = $request->order;
+        $details->type = $request->type;
+        $details->save();
+
+        return redirect()->back()->with('success', 'Note updated successfully.');
     }
 
     public function delete(Request $request)

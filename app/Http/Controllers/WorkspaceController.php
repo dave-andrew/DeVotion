@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NoteEdit;
 use App\Models\Note;
 use App\Models\Notedetail;
 use App\Models\Teamspace;
@@ -161,6 +162,8 @@ class WorkspaceController extends Controller
         }
 
         $note = Note::find($request->note_id);
+
+        NoteEdit::dispatch($note);
 
         return view('pages.note', compact('workspace', 'note'));
     }

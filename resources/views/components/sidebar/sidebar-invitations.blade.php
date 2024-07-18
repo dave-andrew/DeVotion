@@ -9,7 +9,6 @@
                 <div class="w-full flex flex-col justify-center px-8 mb-3">
 
                     <h2 class="text-gray-500 font-semibold">You have {{ Auth::user()->invitations->count() }} invitations</h2>
-
                     @foreach(Auth::user()->invitations as $invitation)
                         <div class="flex items">
                             <div class="flex w-full py-4">

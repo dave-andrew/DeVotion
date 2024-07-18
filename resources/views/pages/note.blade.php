@@ -5,13 +5,16 @@
 @section('content')
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
+        Pusher.logToConsole = true;
         const pusher = new Pusher('5d84524b482b3b5c2a6f', {
             cluster: 'ap1'
         });
 
         const channel = pusher.subscribe('node-edit-channel.{{$note->id}}');
         channel.bind('node-edit', function(response) {
-            window.Livewire.emit('node-edit', response['note']);
+            window.Livewire.emit('node-edit', response.note);
+            window.Livewire.emit('note-edit', response.note.notedetails)
+            // console.log(response.note.notedetails)
         });
     </script>
     <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
@@ -19,12 +22,9 @@
 
             @livewire('title', ['note' => $note])
 
-
-            @foreach($note->notedetails as $data)
-                @include('components.inputs.general-inputs', ['data' => $data])
+            @foreach($note->notedetails as $notedetail)
+                @livewire('note-detail', ['notedetail' => $notedetail, 'note' => $note])
             @endforeach
-
-
         </div>
     </div>
 @endsection

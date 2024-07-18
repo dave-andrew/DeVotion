@@ -25,7 +25,6 @@
         @endauth
         @yield('content')
     </div>
-    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     @livewireScripts
 </body>
 

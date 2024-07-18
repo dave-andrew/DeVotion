@@ -34,7 +34,7 @@ class NoteController extends Controller
         $note->title = $request->title;
         $note->save();
 
-        NoteEdit::dispatch($note);
+        NoteEdit::dispatch($note, $note->notedetails);
 
         return redirect()->back();
     }

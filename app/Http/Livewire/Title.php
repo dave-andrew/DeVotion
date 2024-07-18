@@ -11,7 +11,6 @@ class Title extends Component
     public $note;
     public $title;
 
-    public $data;
     public $listeners = ['node-edit' => 'update'];
 
    public function update($note){
@@ -30,7 +29,7 @@ class Title extends Component
     {
         $this->note->title = $this->title;
         $this->note->save();
-        NoteEdit::dispatch($this->note);
+        NoteEdit::dispatch($this->note, $this->note->notedetails);
     }
 
     public function render()

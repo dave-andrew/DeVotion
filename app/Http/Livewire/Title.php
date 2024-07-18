@@ -11,13 +11,14 @@ class Title extends Component
     public $note;
     public $title;
 
-    public $listeners = ['node-edit' => 'update'];
+    public $listeners = ['note-edit' => 'update'];
 
-   public function update($note){
+    public function update($note)
+    {
         $id = $note['id'];
-       $this->title = $note['title'];
+        $this->title = $note['title'];
         $this->note = Note::find($id);
-   }
+    }
 
     public function mount($note)
     {
@@ -29,7 +30,7 @@ class Title extends Component
     {
         $this->note->title = $this->title;
         $this->note->save();
-        NoteEdit::dispatch($this->note, $this->note->notedetails);
+        NoteEdit::dispatch($this->note);
     }
 
     public function render()

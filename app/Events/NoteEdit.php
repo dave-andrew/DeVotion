@@ -40,7 +40,7 @@ class NoteEdit implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('node-edit-channel.'.$this->note->id);
+        return new Channel('note-edit-channel.'.$this->note->id);
     }
 
     /**
@@ -50,6 +50,6 @@ class NoteEdit implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'node-edit';
+        return 'note-edit';
     }
 }

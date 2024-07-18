@@ -3,36 +3,35 @@
 namespace App\Http\Livewire;
 
 use App\Events\NoteDetailEdit;
+use App\Events\NoteEdit;
+use App\Models\Notedetail as ModelsNotedetail;
 use Livewire\Component;
 
 class NoteDetail extends Component
 {
-    public $contents = [];
-    public $notedetails = [];
+    public $content;
+    public $detail;
 
-    public $listeners = ['note-edit' => 'update'];
+    public $listeners = ['note-detail-edit' => 'update'];
 
-    public function update($notedetail, $note)
+    public function update($detail)
     {
-        foreach ($note['notedetails'] as $key => $detail) {
-            $this->contents[$detail['id']] = $detail['content'];
-            $this->notedetails[$key] = \App\Models\Notedetail::find($detail['id']);
-        }
+        $id = $detail['id'];
+        $this->content = $detail['content'];
+        $this->detail = ModelsNotedetail::find($id);
     }
 
-    public function mount($note)
+    public function mount($detail)
     {
-        foreach ($note->notedetails as $detail) {
-            $this->contents[$detail->id] = $detail->content;
-            $this->notedetails[] = $detail;
-        }
+        $this->content = $detail->content;
+        $this->detail = $detail;
     }
 
-    public function onChange($id)
+    public function onChange()
     {
-        $this->notedetails[array_search($id, array_column($this->notedetails, 'id'))]->content = $this->contents[$id];
-        $this->notedetails[array_search($id, array_column($this->notedetails, 'id'))]->save();
-        NoteDetailEdit::dispatch($this->notedetails[array_search($id, array_column($this->notedetails, 'id'))]);
+        $this->detail->content = $this->content;
+        $this->detail->save();
+        NoteDetailEdit::dispatch($this->detail);
     }
 
     public function render()

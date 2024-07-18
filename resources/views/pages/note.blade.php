@@ -10,20 +10,25 @@
             cluster: 'ap1'
         });
 
-        const channel = pusher.subscribe('node-edit-channel.{{$note->id}}');
-        channel.bind('node-edit', function(response) {
-            window.Livewire.emit('node-edit', response.note);
-            window.Livewire.emit('note-edit', response.note.notedetails, response.note)
-            // console.log(response.note.notedetails)
+        const channel = pusher.subscribe('note-edit-channel.{{ $note->id }}');
+        channel.bind('note-edit', function(response) {
+            window.Livewire.emit('note-edit', response.note);
         });
+
+        @foreach ($note->notedetails as $detail)
+            const detailChannel = pusher.subscribe('note-detail-edit.{{ $detail->id }}');
+            detailChannel.bind('note-detail-edit', function(response) {
+                window.Livewire.emit('note-detail-edit', response.notedetail);
+            });
+        @endforeach
     </script>
     <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
         <div class="max-w-xl w-full mx-auto">
 
             @livewire('title', ['note' => $note])
-
-            @livewire('note-detail', ['note' => $note])
+            @foreach ($note->notedetails as $detail)
+                @livewire('note-detail', ['detail' => $detail])
+            @endforeach
         </div>
     </div>
 @endsection
-

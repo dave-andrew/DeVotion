@@ -57,6 +57,6 @@ class NoteDetailEdit implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'note-edit';
+        return 'note-detail-edit';
     }
 }

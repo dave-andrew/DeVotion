@@ -48,11 +48,13 @@ class NotePolicy
             return true;
         }
 
-        if($teamspace->permission == 'private' && $workspace->users->find($user->id)->pivot->role == 'owner') {
+        $role = $workspace->users->find($user->id)->pivot->role;
+
+        if($teamspace->permission == 'private' && $role == 'owner') {
             return true;
         }
 
-        return $workspace->users->find($user->id)->pivot->role == 'admin' || $workspace->users->find($user->id)->pivot->role == 'owner';
+        return $role == 'admin' || $role == 'owner';
     }
 
     /**
@@ -62,9 +64,17 @@ class NotePolicy
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Note $note)
+    public function update(User $user, Workspace $workspace, Teamspace $teamspace)
     {
-        //
+        if($teamspace->permission == 'public') {
+            return true;
+        }
+
+        if($teamspace->permission == 'private' && $workspace->users->find($user->id)->pivot->role == 'owner') {
+            return true;
+        }
+
+        return $workspace->users->find($user->id)->pivot->role == 'admin' || $workspace->users->find($user->id)->pivot->role == 'owner';
     }
 
     /**

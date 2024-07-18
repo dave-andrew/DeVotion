@@ -45,5 +45,6 @@ class AppServiceProvider extends ServiceProvider
         # Notes
         Gate::define('note-create', [NotePolicy::class, 'create']);
         Gate::define('note-delete', [NotePolicy::class, 'delete']);
+        Gate::define('note-update', [NotePolicy::class, 'update']);
     }
 }

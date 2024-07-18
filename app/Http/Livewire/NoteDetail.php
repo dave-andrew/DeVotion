@@ -12,6 +12,7 @@ class NoteDetail extends Component
     public $content;
     public $detail;
     public $count = 0;
+    public $editable;
 
     public $listeners = ['note-detail-edit' => 'update'];
 
@@ -26,8 +27,9 @@ class NoteDetail extends Component
         }
     }
 
-    public function mount($detail)
+    public function mount($detail, $editable)
     {
+        $this->editable = $editable;
         $this->content = $detail->content;
         $this->detail = $detail;
     }

@@ -5,7 +5,7 @@
 @section('content')
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
-        Pusher.logToConsole = true;
+        // Pusher.logToConsole = true;
         const pusher = new Pusher('5d84524b482b3b5c2a6f', {
             cluster: 'ap1'
         });
@@ -22,9 +22,32 @@
         });
         @endforeach
     </script>
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.shiftKey && event.key === 'Enter' && event.target.tagName.toLowerCase() === 'textarea') {
+                event.preventDefault();
+                document.getElementById('addNoteDetailForm').submit();
+            }
+        });
+    </script>
     <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
         <div class="max-w-xl w-full mx-auto">
-
+            @can('note-update', [$workspace, $note->teamspace])
+                <div class="w-full group relative mt-2">
+                    <div class="absolute flex -left-8 top-1">
+                        <form id="addNoteDetailForm" method="POST" action="{{route("addNoteDetail", $workspace->id)}}">
+                            @csrf
+                            <input type="hidden" name="teamspace_id" value="{{$note->teamspace->id}}">
+                            <input type="hidden" name="note" value="{{$note->id}}">
+                            <button
+                                type="submit"
+                                class="group-hover:opacity-100 opacity-0 px-1 py-1 hover:bg-gray-100 rounded-md text-gray-400">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endcan
             @livewire('title', ['note' => $note])
 
             @foreach ($note->notedetails as $detail)

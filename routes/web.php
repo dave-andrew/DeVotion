@@ -69,6 +69,16 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
 
     Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
         ->name('viewWorkspaceNote');
+
+    Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
+
+    Route::post('/{workspace_id}/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])
+        ->middleware('checkInviteAuthorization')
+        ->name('updateWorkspace');
+
+    Route::delete('/{workspace_id}/deleteWorkspace', [WorkspaceController::class, 'deleteWorkspace'])
+        ->middleware('checkIsOwne')
+        ->name('deleteWorkspace');
 });
 
 Route::middleware('checkInvitation')->group(function () {
@@ -84,13 +94,6 @@ Route::middleware(['checkUserIsLogin'])->group(function() {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
-
-Route::post('/{workspace_id}/createTeamspace', [TeamspaceController::class,'create'])->name('createTeamspace');
-
-Route::post('/{workspace_id}/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])
-    ->name('updateWorkspace');
-Route::delete('/{workspace_id}/deleteWorkspace', [WorkspaceController::class, 'deleteWorkspace'])
-    ->name('deleteWorkspace');
 
 // User Accounts
 Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');

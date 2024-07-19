@@ -37,7 +37,7 @@
     function searchComponent() {
         return {
             inputSearch: '',
-            teams: @json($workspace->teamspaces),
+            teams: @json($teams),
             get filteredTeams() {
                 if (!this.inputSearch) {
                     return this.teams;
@@ -45,6 +45,7 @@
                 const searchLower = this.inputSearch.toLowerCase();
                 return this.teams.map(team => {
                     const filteredNotes = team.notes.filter(note => note.title.toLowerCase().includes(searchLower));
+
                     return {
                         ...team,
                         notes: filteredNotes

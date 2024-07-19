@@ -8,6 +8,7 @@ use App\Models\Notedetail;
 use App\Models\Teamspace;
 use App\Models\Workspace;
 use App\Models\Workspaceuser;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,7 +68,18 @@ class WorkspaceController extends Controller
     public function get() {
         $workspaces = Workspace::find(auth()->user()->pluck('id'));
 
-        return view('pages.notes', compact('workspaces'));
+        $teamspaces = $workspace->teamspaces;
+
+        $teams = [];
+        $i = 0;
+        foreach($teamspaces as $team) {
+            if(Gate::allows('teamspace-view', $team)) {
+                $teams[$i] = $team;
+                $i++;
+            }
+        }
+
+        return view('pages.notes', compact('workspaces', 'teams'));
     }
 
     public function store(Request $request)
@@ -150,8 +162,18 @@ class WorkspaceController extends Controller
         }
 
         $note = $workspace->teamspaces->first()->notes->first();
+        $teamspaces = $workspace->teamspaces;
 
-        return view('pages.note', compact('workspace', 'note'));
+        $teams = [];
+        $i = 0;
+        foreach($teamspaces as $team) {
+            if(\Illuminate\Support\Facades\Gate::allows('teamspace-view', [$workspace, $team])) {
+                $teams[$i] = $team;
+                $i++;
+            }
+        }
+
+        return view('pages.note', compact('workspace', 'note', 'teams'));
     }
 
     public function viewWorkspaceNote(Request $request) {
@@ -162,10 +184,20 @@ class WorkspaceController extends Controller
         }
 
         $note = Note::find($request->note_id);
+        $teamspaces = $workspace->teamspaces;
+
+        $teams = [];
+        $i = 0;
+        foreach($teamspaces as $team) {
+            if(Gate::allows('teamspace-view', $team)) {
+                $teams[$i] = $team;
+                $i++;
+            }
+        }
 
         // NoteEdit::dispatch($note, $note->notedetails);
 
-        return view('pages.note', compact('workspace', 'note'));
+        return view('pages.note', compact('workspace', 'note', 'teams'));
     }
 
     public function deleteWorkspace(Request $request) {

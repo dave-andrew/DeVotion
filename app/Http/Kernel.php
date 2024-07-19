@@ -75,5 +75,6 @@ class Kernel extends HttpKernel
         'checkInviteAuthorization' => \App\Http\Middleware\checkInviteAuthorization::class,
         'checkPromoteAuthorization' => \App\Http\Middleware\checkPromoteAuthorization::class,
         'checkCreateNoteAuthorization' => \App\Http\Middleware\checkCreateNoteAuthorization::class,
+        'checkIsOwner' => \App\Http\Middleware\checkIsOwner::class,
     ];
 }

@@ -17,7 +17,7 @@
                     <h1 class="text-gray-500 font-bold opacity-70" x-text="team.name"></h1>
 
                     <template x-for="note in team.notes" :key="note.id">
-                        <form :action="'/workspace/' + {{ $workspace->id }} + '/note/' + note.id" method="POST"
+                        <form :action="'/{{ $workspace->id }}/note/' + note.id" method="POST"
                               class="w-full pl-4 py-2 flex items-center flex-shrink-0 flex-grow rounded-md hover:bg-stone-200 hover:cursor-pointer transition-all duration-300">
                             @csrf
                             <input type="hidden" name="note_id" x-bind:value="note.id">

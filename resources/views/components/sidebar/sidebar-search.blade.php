@@ -5,7 +5,7 @@
         {{-- Search Bar --}}
         <div class="w-full flex items-center px-4 mb-3">
             <i class="fa-solid fa-magnifying-glass fa-lg mr-2 text-gray-500"></i>
-            <label>
+            <label class="w-full">
                 <input x-model="inputSearch" name="search_input" class="w-full text-black text-xl outline-none border-none ring-0" type="text"
                        placeholder="Search in Your Notion...">
             </label>

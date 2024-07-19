@@ -28,13 +28,21 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('keydown', (e) => {
+            if (e.shiftKey && e.key === 'Enter' && e.target.tagName.toLowerCase() === 'textarea') {
+                e.preventDefault();
+                document.getElementById('addNoteDetail').submit();
+            }
+        })
+    </script>
     <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
         <div class="max-w-xl w-full mx-auto">
 
             @can('note-update', [$workspace, $note->teamspace])
                 <div class="w-full group relative mt-2">
                     <div class="absolute flex -left-8 top-1">
-                        <form method="POST" action="{{route("addNoteDetail", $workspace->id)}}" class="addNoteDetail">
+                        <form method="POST" action="{{route("addNoteDetail", $workspace->id)}}" id="addNoteDetail">
                             @csrf
                             <input type="hidden" name="teamspace_id" value="{{$note->teamspace->id}}">
                             <input type="hidden" name="note" value="{{$note->id}}">

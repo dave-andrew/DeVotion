@@ -73,7 +73,7 @@ class WorkspaceController extends Controller
         $teams = [];
         $i = 0;
         foreach($teamspaces as $team) {
-            if(Gate::allows('teamspace-view', $team)) {
+            if(\Illuminate\Support\Facades\Gate::allows('teamspace-view', [$workspace, $team])) {
                 $teams[$i] = $team;
                 $i++;
             }
@@ -172,6 +172,7 @@ class WorkspaceController extends Controller
                 $i++;
             }
         }
+        $note = $teams[0]->notes->first();
 
         return view('pages.note', compact('workspace', 'note', 'teams'));
     }
@@ -189,7 +190,7 @@ class WorkspaceController extends Controller
         $teams = [];
         $i = 0;
         foreach($teamspaces as $team) {
-            if(Gate::allows('teamspace-view', $team)) {
+            if(\Illuminate\Support\Facades\Gate::allows('teamspace-view', [$workspace, $team])) {
                 $teams[$i] = $team;
                 $i++;
             }

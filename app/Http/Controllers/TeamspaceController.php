@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class TeamspaceController extends Controller
 {
-    
+
     public function create(Request $request) {
-        
+
         try {
             DB::beginTransaction();
 
@@ -34,7 +34,7 @@ class TeamspaceController extends Controller
             $notedetail->save();
 
             DB::commit();
-               
+
         } catch(\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to create teamspace');

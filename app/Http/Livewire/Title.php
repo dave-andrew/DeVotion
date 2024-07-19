@@ -10,6 +10,7 @@ class Title extends Component
 {
     public $note;
     public $title;
+    public $editable;
     private $count = 0;
     public $listeners = ['note-edit' => 'update'];
 
@@ -24,8 +25,9 @@ class Title extends Component
         }
     }
 
-    public function mount($note)
+    public function mount($note, $editable)
     {
+        $this->editable = $editable;
         $this->note = $note;
         $this->title = $note->title;
     }

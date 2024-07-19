@@ -36,7 +36,7 @@ class TeamspacePolicy
             return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
         }
 
-        if($teamspace->permission == 'public') {
+        if($teamspace->permission == 'public' || $teamspace->permission == 'default') {
             return $workspace->users->contains($user->id);
         }
 

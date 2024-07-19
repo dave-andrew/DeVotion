@@ -161,7 +161,6 @@ class WorkspaceController extends Controller
             return redirect()->route('viewCreateWorkspace.type');
         }
 
-        $note = $workspace->teamspaces->first()->notes->first();
         $teamspaces = $workspace->teamspaces;
 
         $teams = [];
@@ -172,6 +171,11 @@ class WorkspaceController extends Controller
                 $i++;
             }
         }
+
+        if(count($teams) == 0) {
+            return view('pages.empty-workspace', compact('workspace', 'teams'));
+        }
+
         $note = $teams[0]->notes->first();
 
         return view('pages.note', compact('workspace', 'note', 'teams'));

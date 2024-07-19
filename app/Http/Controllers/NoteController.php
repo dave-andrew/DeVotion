@@ -49,15 +49,19 @@ class NoteController extends Controller
         $note = Note::find($request->note_id);
         $workspace = Workspace::find($request->workspace_id);
 
+        $teamspace = $note->teamspace;
+
         if(Gate::denies('note-delete', $workspace)) {
             return redirect()->back()->withErrors('You are not authorized to delete this note.');
         }
 
-        $teamspace = $note->teamspace;
+        if($teamspace->notes->count() == 1 && $workspace->teamspaces->count() == 1) {
+            return redirect()->back()->withErrors('You cannot delete the last note in a workspace.');
+        }
 
         $note->delete();
 
-        if($teamspace->notes->count() == 0) {
+        if($teamspace->notes->count() - 1 == 0) {
             $teamspace->delete();
         }
 

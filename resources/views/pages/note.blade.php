@@ -55,7 +55,7 @@
                     </div>
                 </div>
             @endcan
-            @livewire('title', ['note' => $note])
+            @livewire('title', ['note' => $note, 'editable' => Gate::allows('note-update', [$workspace, $note->teamspace])])
 
             @foreach ($note->notedetails as $detail)
                 <div class="w-full group relative mt-2">

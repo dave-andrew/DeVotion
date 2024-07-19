@@ -77,7 +77,7 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->name('updateWorkspace');
 
     Route::delete('/{workspace_id}/deleteWorkspace', [WorkspaceController::class, 'deleteWorkspace'])
-        ->middleware('checkIsOwne')
+        ->middleware('checkIsOwner')
         ->name('deleteWorkspace');
 });
 
@@ -95,8 +95,16 @@ Route::middleware(['checkUserIsLogin'])->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// User Accounts
-Route::post('/changeUsername', [UserController::class, 'changeUsername'])->name('changeUsername');
-Route::put('/changePassword', [UserController::class, 'changePassword'])->name('changePassword');
-Route::put('/changeEmail', [UserController::class, 'changeEmail'])->name('changeEmail');
-Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])->name('deleteAccount');
+Route::middleware('checkUserIsLogin')->group(function() {
+    Route::post('/changeUsername', [UserController::class, 'changeUsername'])
+        ->name('changeUsername');
+
+    Route::put('/changePassword', [UserController::class, 'changePassword'])
+        ->name('changePassword');
+
+    Route::put('/changeEmail', [UserController::class, 'changeEmail'])
+        ->name('changeEmail');
+
+    Route::post('/deleteAccount', [UserController::class, 'deleteAccount'])
+        ->name('deleteAccount');
+});

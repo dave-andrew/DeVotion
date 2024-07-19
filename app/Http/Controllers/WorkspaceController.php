@@ -12,6 +12,7 @@ use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class WorkspaceController extends Controller
@@ -114,7 +115,13 @@ class WorkspaceController extends Controller
             $workspace->name = $request->name;
             $workspace->description = $request->description;
             $workspace->type = $request->type;
-            $workspace->image = $request->image;
+            if ($request->has('image')) {
+                $imageData = $request->file('image');
+                $imageName = time() . $imageData->getClientOriginalName();
+                $path = $request->file('image')->storeAs('images', $imageName, 'public');
+                $workspace->image = '/storage/'.$path;
+            }
+
             $workspace->save();
 
             $workspaceuser = new Workspaceuser();

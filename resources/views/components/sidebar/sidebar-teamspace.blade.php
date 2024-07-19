@@ -28,6 +28,5 @@
                 <button type="submit" class="w-full h-10 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition-colors">Create Teamspace</button>
             </form>
         </div>
-
     </div>
 </div>

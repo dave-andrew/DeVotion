@@ -5,7 +5,7 @@
 @section('content')
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
-        // Pusher.logToConsole = true;
+        Pusher.logToConsole = true;
         const pusher = new Pusher('5d84524b482b3b5c2a6f', {
             cluster: 'ap1'
         });
@@ -14,28 +14,35 @@
         channel.bind('note-edit', function (response) {
             window.Livewire.emit('note-edit', response.note);
         });
+        const noteDetails = @json($note->notedetails);
 
-        @foreach ($note->notedetails as $detail)
-        const detailChannel = pusher.subscribe('note-detail-edit.{{ $detail->id }}');
-        detailChannel.bind('note-detail-edit', function (response) {
-            window.Livewire.emit('note-detail-edit', response.notedetail);
+        const detailChannels = {};
+
+        noteDetails.forEach(detail => {
+            console.log('Detail:', detail);
+
+            const channelKey = `detailChannel_${detail.id}`;
+
+            detailChannels[channelKey] = pusher.subscribe(`note-detail-edit.${detail.id}`);
+            detailChannels[channelKey].bind('note-detail-edit', function (response) {
+                window.Livewire.emit('note-detail-edit', response.notedetail);
+            });
         });
-        @endforeach
-    </script>
-    <script>
-        document.addEventListener('keydown', function (event) {
-            if (event.shiftKey && event.key === 'Enter' && event.target.tagName.toLowerCase() === 'textarea') {
-                event.preventDefault();
-                document.getElementById('addNoteDetailForm').submit();
-            }
-        });
+
+{{--        @foreach ($note->notedetails as $detail)--}}
+{{--            const detailChannel = pusher.subscribe('note-detail-edit.{{ $detail->id }}')--}}
+{{--            detailChannel.bind('note-detail-edit', function (response) {--}}
+{{--                window.Livewire.emit('note-detail-edit', response.notedetail);--}}
+{{--            });--}}
+{{--        @endforeach--}}
     </script>
     <div class="min-h-screen flex flex-grow py-20 overflow-y-auto">
         <div class="max-w-xl w-full mx-auto">
+
             @can('note-update', [$workspace, $note->teamspace])
                 <div class="w-full group relative mt-2">
                     <div class="absolute flex -left-8 top-1">
-                        <form id="addNoteDetailForm" method="POST" action="{{route("addNoteDetail", $workspace->id)}}">
+                        <form method="POST" action="{{route("addNoteDetail", $workspace->id)}}" class="addNoteDetail">
                             @csrf
                             <input type="hidden" name="teamspace_id" value="{{$note->teamspace->id}}">
                             <input type="hidden" name="note" value="{{$note->id}}">
@@ -70,6 +77,20 @@
                         </div>
                     @endcan
                     @livewire('note-detail', ['detail' => $detail, 'editable' => Gate::allows('note-update', [$workspace, $note->teamspace])])
+                        @can('note-update', [$workspace, $note->teamspace])
+                            <div class="absolute flex right-0 top-1">
+                                <form method="POST" action="{{route("deleteNoteDetail", $workspace->id)}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="teamspace_id" value="{{$note->teamspace->id}}">
+                                    <input type="hidden" name="note_detail_id" value="{{$note->id}}">
+                                    <button
+                                        type="submit"
+                                        class="group-hover:opacity-100 opacity-0 px-1 py-1 hover:bg-gray-100 rounded-md text-gray-400 cursor-grab">
+                                        <i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </div>
+                        @endcan
                 </div>
             @endforeach
         </div>

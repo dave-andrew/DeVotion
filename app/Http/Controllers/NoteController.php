@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NoteDetailAdded;
+use App\Events\NoteDetailDeleted;
 use App\Events\NoteEdit;
 use App\Models\Note;
 use App\Models\Notedetail;
@@ -116,6 +118,29 @@ class NoteController extends Controller
             DB::rollback();
 
             return redirect()->back()->with('error', 'Failed to add note detail.');
+        }
+    }
+
+    public function deleteNoteDetail(Request $request)
+    {
+        $detail = Notedetail::find($request->note_detail_id);
+
+        if (!$detail) {
+            return redirect()->back()->with('error', 'Note detail not found.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $detail->delete();
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Note detail deleted successfully.');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()->with('error', 'Failed to delete note detail.');
         }
     }
 }

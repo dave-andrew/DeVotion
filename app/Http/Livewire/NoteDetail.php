@@ -18,7 +18,7 @@ class NoteDetail extends Component
 
     public function update($detail)
     {
-        if($this->count == 0){
+        if($this->count == 0 && $this->detail->id == $detail['id']){
             $id = $detail['id'];
             $this->content = $detail['content'];
             $this->detail = ModelsNotedetail::find($id);

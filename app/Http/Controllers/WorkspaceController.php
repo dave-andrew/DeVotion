@@ -196,8 +196,6 @@ class WorkspaceController extends Controller
             }
         }
 
-        // NoteEdit::dispatch($note, $note->notedetails);
-
         return view('pages.note', compact('workspace', 'note', 'teams'));
     }
 

@@ -11,13 +11,15 @@
         @elseif($type == 'personal')
             <h1 class="text-2xl font-bold text-gray-500">Help you stay organized</h1>
         @endif
-        <form method="POST" action="{{route('create.workspace')}}" enctype="multipart/form-data" class="pt-[10vh] w-full">
+        <form method="POST" action="{{ route('create.workspace') }}" enctype="multipart/form-data" class="pt-[10vh] w-full">
             @csrf
             <div class="flex flex-col items-center">
                 <label for="image" class="flex flex-col justify-center mb-6 cursor-pointer">
-                    <img src="{{ asset('workspace-detail.png') }}" alt="Workspace Detail" class="w-[200px] h-[200px]">
+                    <div class="image-placeholder w-[200px] h-[200px] flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg overflow-hidden">
+                        <img id="imagePreview" alt="Workspace Detail" class="w-full h-full object-cover hidden">
+                        <div id="imagePlaceholderText" class="absolute dark:text-white font-medium hover:text-blue-300 transition-all duration-500">Choose or add an image</div>
+                    </div>
                     <input type="file" name="image" id="image" class="hidden">
-                    <div class="dark:text-white font-medium hover:text-blue-300 transition-all duration-500">Choose or add an image</div>
                 </label>
                 <div class="flex flex-col w-full">
                     <label for="name" class="dark:text-white font-medium mb-1">Workspace Name</label>
@@ -31,12 +33,11 @@
                 </button>
             </div>
         </form>
-    @if($errors->any())
+        @if($errors->any())
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            @endforeach
         @endif
     </div>
 
@@ -45,6 +46,9 @@
             const nameInput = document.getElementById('name');
             const descriptionInput = document.getElementById('description');
             const continueButton = document.getElementById('continueButton');
+            const imageInput = document.getElementById('image');
+            const imagePreview = document.getElementById('imagePreview');
+            const imagePlaceholderText = document.getElementById('imagePlaceholderText');
 
             function updateButtonState() {
                 if (nameInput.value.trim() !== '' && descriptionInput.value.trim() !== '') {
@@ -60,7 +64,37 @@
 
             nameInput.addEventListener('input', updateButtonState);
             descriptionInput.addEventListener('input', updateButtonState);
+
+            imageInput.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                        imagePlaceholderText.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.src = '';
+                    imagePreview.classList.add('hidden');
+                    imagePlaceholderText.classList.remove('hidden');
+                }
+            });
         });
     </script>
+
+    <style>
+        .image-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        #imagePlaceholderText {
+            position: absolute;
+            z-index: 10;
+        }
+    </style>
 
 @endsection

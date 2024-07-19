@@ -8,7 +8,10 @@ use App\Models\Notedetail;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+use Monolog\Logger;
 
 class NoteController extends Controller
 {
@@ -86,5 +89,33 @@ class NoteController extends Controller
         $newNote->save();
 
         return redirect()->back()->with('success', 'Note duplicated successfully.');
+    }
+
+    public function addNoteDetail(Request $request)
+    {
+        $note = Note::find($request->note);
+
+        if (!$note) {
+            return redirect()->back()->with('error', 'Note not found.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $detail = new Notedetail();
+            $detail->note_id = $note->id;
+            $detail->content = "";
+            $detail->type = "text";
+            $detail->order = 0;
+            $detail->save();
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Note detail added successfully.');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()->with('error', 'Failed to add note detail.');
+        }
     }
 }

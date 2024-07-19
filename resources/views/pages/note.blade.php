@@ -31,9 +31,16 @@
                 <div class="w-full group relative mt-2">
                     @can('note-update', [$workspace, $note->teamspace])
                         <div class="absolute flex -left-12 top-1">
-                            <button
-                                class="group-hover:opacity-100 opacity-0 px-1 py-1 hover:bg-gray-100 rounded-md text-gray-400">
-                                <i class="fa-solid fa-plus"></i></button>
+                            <form method="POST" action="{{route("addNoteDetail", $workspace->id)}}">
+                                @csrf
+                                <input type="hidden" name="teamspace_id" value="{{$note->teamspace->id}}">
+                                <input type="hidden" name="note" value="{{$note->id}}">
+                                <button
+                                    type="submit"
+                                    class="group-hover:opacity-100 opacity-0 px-1 py-1 hover:bg-gray-100 rounded-md text-gray-400">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </form>
                             <button
                                 class="group-hover:opacity-100 opacity-0 px-1 py-1 hover:bg-gray-100 rounded-md text-gray-400 cursor-grab">
                                 <i class="fa-solid fa-grip-vertical"></i></button>

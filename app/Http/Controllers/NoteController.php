@@ -131,16 +131,10 @@ class NoteController extends Controller
 
         DB::beginTransaction();
 
-        try {
-            $detail->delete();
+        $detail->delete();
 
-            DB::commit();
+        DB::commit();
 
-            return redirect()->back()->with('success', 'Note detail deleted successfully.');
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return redirect()->back()->with('error', 'Failed to delete note detail.');
-        }
+        return redirect()->back()->with('success', 'Note detail deleted successfully.');
     }
 }

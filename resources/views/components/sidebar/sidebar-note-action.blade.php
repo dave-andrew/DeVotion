@@ -24,15 +24,6 @@
             </button>
         </form>
     @endcan
-    @can('note-update', [$workspace, $team])
-        <div class="sidebar-row justify-between mb-1">
-            <div class="flex items-center">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <p class="ml-2">Rename</p>
-            </div>
-            <p class="text-xs text-gray-400">Ctrl+Alt+R</p>
-        </div>
-    @endcan
     @can('note-delete', $workspace)
         <form action="{{route('deleteNote', $workspace->id)}}" method="POST">
             @csrf

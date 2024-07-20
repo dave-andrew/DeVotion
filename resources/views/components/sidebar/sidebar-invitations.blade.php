@@ -1,33 +1,31 @@
 <div x-cloak x-show="invitations" x-on:click="invitations=false"
-     class="z-50 fixed inset-0 min-w-screen min-h-screen flex justify-center items-center bg-black bg-opacity-50">
+     class="z-50 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div @click.stop
-         class="z-50 bg-white max-w-3xl w-full max-h-96 h-full m-auto flex flex-col py-4 rounded-lg text-black">
+         class="z-50 bg-white max-w-3xl w-full max-h-96 h-full m-auto flex flex-col py-4 rounded-lg shadow-lg text-black">
         <div class="w-full flex flex-col justify-center px-8 mb-3">
 
-            <h1 class="text-lg font-bold">Invitations</h1>
+            <h1 class="text-lg font-bold mb-4">Invitations</h1>
             @if(Auth::user()->invitations->count() > 0)
-                <div class="w-full flex flex-col justify-center px-8 mb-3">
+                <div class="w-full flex flex-col justify-center mb-3">
 
-                    <h2 class="text-gray-500 font-semibold">You have {{ Auth::user()->invitations->count() }} invitations</h2>
+                    <h2 class="text-gray-500 font-semibold mb-3">You have {{ Auth::user()->invitations->count() }} invitations</h2>
                     @foreach(Auth::user()->invitations as $invitation)
-                        <div class="flex items">
-                            <div class="flex w-full py-4">
-                                <img src="data:image/jpeg;base64,{{ $invitation->workspace->image }}" alt="{{ $invitation->workspace->name }}" />
-                                <div class="flex flex-col ml-4">
-                                    <h1 class="text-gray-500 font-semibold">{{ $invitation->workspace->name }}</h1>
-                                    <h2 class="text-gray-500 font-semibold">{{ $invitation->invitedBy->username }}</h2>
-                                </div>
+                        <div class="flex items-center mb-4 bg-gray-100 rounded-lg p-4 shadow">
+                            <img src="{{asset($invitation->workspace->image)}}" alt="{{ $invitation->workspace->name }}" class="h-10 w-10 rounded-full mr-4" />
+                            <div class="flex flex-col">
+                                <h1 class="text-gray-700 font-semibold">{{ $invitation->workspace->name }}</h1>
+                                <h2 class="text-gray-500">{{ $invitation->invitedBy->username }}</h2>
                             </div>
-                            <div class="flex items-center w-1/2 gap-2">
+                            <div class="flex items-center ml-auto gap-2">
                                 <form method="POST" action="{{route('invitation.accept')}}">
                                     @csrf
                                     <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
-                                    <button type="submit" class="bg-blue-500 p-2 rounded-md text-white text-xs font-medium">Accept</button>
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 p-2 rounded-md text-white text-xs font-medium">Accept</button>
                                 </form>
                                 <form method="POST" action="{{route('invitation.decline')}}">
                                     @csrf
                                     <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
-                                    <button type="submit" class="bg-red-500 p-2 rounded-md text-white text-xs font-medium">Decline</button>
+                                    <button type="submit" class="bg-red-500 hover:bg-red-600 p-2 rounded-md text-white text-xs font-medium">Decline</button>
                                 </form>
                             </div>
                         </div>

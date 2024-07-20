@@ -95,7 +95,7 @@ class WorkspaceController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'image' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg',
         ];
 
         $validated = Validator::make($request->all(), $validation, $messages);
@@ -117,9 +117,10 @@ class WorkspaceController extends Controller
             $workspace->type = $request->type;
             if ($request->has('image')) {
                 $imageData = $request->file('image');
-                $imageName = time() . $imageData->getClientOriginalName();
-                $path = $request->file('image')->storeAs('images', $imageName, 'public');
-                $workspace->image = '/storage/'.$path;
+                $imageName = time() . "." . $imageData->getClientOriginalExtension();
+                $path = 'uploads/category/';
+                $imageData->move($path, $imageName);
+                $workspace->image = $path.$imageName;
             }
 
             $workspace->save();

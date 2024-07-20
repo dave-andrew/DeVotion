@@ -2,7 +2,7 @@
 
 <div class="relative w-60 h-full min-h-screen -z-50"></div>
 
-<div class="fixed left-0 z-40">
+<div class="fixed left-0 z-40 h-full">
     <div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100"
          x-data="{ search: false, setting: false, teamspace: false, workspace: false, invitations: false }" x-cloak>
         <div class="relative h-full max-h-full flex flex-col">
@@ -43,8 +43,10 @@
                 </button>
             @endcan
 
+
             {{-- Teamspace --}}
-            <div class="flex flex-col text-gray-400 font-semibold overflow-y-scroll no-scrollbar">
+
+            <div class="flex flex-col text-gray-400 font-semibold overflow-y-scroll lean-scrollbar">
                 @foreach ($workspace->teamspaces as $team)
                     @cannot('teamspace-view', [$workspace, $team])
                         @continue
@@ -148,3 +150,10 @@
     </div>
 
 </div>
+
+<style>
+    .lean-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
+    }
+</style>

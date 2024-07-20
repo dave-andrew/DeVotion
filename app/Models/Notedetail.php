@@ -12,6 +12,6 @@ class Notedetail extends Model
 
     public function notes()
     {
-        return $this->belongsTo(Note::class);
+        return $this->belongsTo(Note::class, 'note_id');
     }
 }

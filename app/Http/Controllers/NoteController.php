@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\NoteDetailAdded;
+use App\Events\NoteDetailBlockEdit;
 use App\Events\NoteDetailDeleted;
 use App\Events\NoteEdit;
 use App\Models\Note;
@@ -117,6 +118,8 @@ class NoteController extends Controller
 
             DB::commit();
 
+            NoteDetailBlockEdit::dispatch($note);
+
             return redirect()->back()->with('success', 'Note detail added successfully.');
         } catch (\Exception $e) {
             DB::rollback();
@@ -133,11 +136,14 @@ class NoteController extends Controller
             return redirect()->back()->with('error', 'Note detail not found.');
         }
 
+        NoteDetailBlockEdit::dispatch($detail->notes);
+
         DB::beginTransaction();
 
         $detail->delete();
 
         DB::commit();
+
 
         return redirect()->back()->with('success', 'Note detail deleted successfully.');
     }

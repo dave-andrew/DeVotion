@@ -27,6 +27,11 @@
                 window.Livewire.emit('note-detail-edit', response.notedetail);
             });
         });
+
+        const newDetailChannel = pusher.subscribe(`note-block-channel.{{ $note->id }}`);
+        newDetailChannel.bind('note-block-edit', function (response) {
+            window.location.reload();
+        });
     </script>
     <script>
         document.addEventListener('keydown', (e) => {

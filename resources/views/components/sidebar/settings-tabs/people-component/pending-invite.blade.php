@@ -1,15 +1,23 @@
-<div x-show="pos==2" class="relative flex flex-col flex-grow py-4 px-8">
+<div x-show="pos==2">
 
-    @if(@$workspace->invitations->isEmpty())
+    @if($workspace->invitations->isEmpty())
     <div class="flex justify-center text-gray-500">
         No pending invitations
     </div>
     @endif
 
-    @foreach($workspace->invitations as $invitation)
-    <div>
-        {{$invitation->user->username}}
+    <div class="flex flex-col text-sm text-gray-400 border-gray-300 overflow-x-auto ">
+        <div class="flex py-2 text-left border-b ">
+            <p class="w-52 pl-2 pr-4 border-r">User</p>
+            <p class="w-44 pl-4 pr-1 border-r">Email</p>
+            <p class="w-12 px-1"></p>
+        </div>
+        <template x-for="user in filteredInvitation" :key="user.id">
+            <div class="flex py-2 border-b">
+                <p class="w-52 pl-2 pr-4 border-r" x-text="user.username"></p>
+                <p class="w-44 pl-4 pr-1 border-r" x-text="user.email"></p>
+            </div>
+        </template>
     </div>
-    @endforeach
 
 </div>

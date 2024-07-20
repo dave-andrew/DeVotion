@@ -6,7 +6,6 @@
         @foreach(\Illuminate\Support\Facades\Auth::user()->workspaces as $workspace)
             <form class="sidebar-row mb-1" action="{{ route('viewWorkspace', $workspace->id) }}" method="GET">
                 <div class="mr-2">
-{{--                    {{dd($workspace->image)}}--}}
                     <img src="{{ asset($workspace->image) }}" height="20" width="20">
                 </div>
                 <button type="submit">

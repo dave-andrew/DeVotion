@@ -36,11 +36,40 @@
 </div>
 
 <script>
+    function searchInvites() {
+        return {
+            inputSearchPeople: '',
+            users: @json($workspace->invitations),
+            authUserId: @json(auth()->id()),
+            get filteredInvitations() {
+                if(!this.inputSearchPeople.trim()) {
+                    return this.users;
+                }
+
+                const searchLower = this.inputSearchPeople.toLowerCase();
+                return this.users.filter(user => user.username.toLowerCase().includes(searchLower) || user.email.toLowerCase().includes(searchLower));
+            }
+        }
+    }
+
     function searchPeople() {
         return {
             inputSearchPeople: '',
             users: @json($workspace->users),
+            invitations: @json(
+                $workspace->invitations->map(function($invite) {
+                    return $invite->user;
+                })
+            ),
             authUserId: @json(auth()->id()),
+            get filteredInvitation() {
+                if (!this.inputSearchPeople.trim()) {
+                    console.log(this.invitations);
+                    return this.invitations;
+                }
+                const searchLower = this.inputSearchPeople.toLowerCase();
+                return this.invitations.filter(user => user.username.toLowerCase().includes(searchLower) || user.email.toLowerCase().includes(searchLower));
+            },
             get filteredUsers() {
                 if (!this.inputSearchPeople.trim()) {
                     return this.users;

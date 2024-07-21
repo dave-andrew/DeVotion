@@ -2,46 +2,48 @@
 
 <div class="relative w-60 h-full min-h-screen -z-50"></div>
 
-<div class="fixed left-0 z-40 max-h-full">
+<div class="fixed left-0 z-40 h-full">
     <div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100"
          x-data="{ search: false, setting: false, teamspace: false, workspace: false, invitations: false }" x-cloak>
-        <div class="relative h-full max-h-full flex flex-col">
+        <div class="relative h-full flex flex-col">
             {{-- Profile --}}
-            <div id="workspaceDialogButton" class="h-8 sidebar-row my-2" onclick="openDialog()"
-                 x-data="{ userDrop: false }">
-                <button class="w-full flex items-center capitalize text-sm pr-8 font-medium" x-on:click="userDrop=true">
-                    <p class="truncate">{{ Auth::user()->username }}'s Notion</p>
-                    <i class="fa-solid fa-chevron-down ml-2"></i>
+            <div class="w-full flex flex-col">
+                <div id="workspaceDialogButton" class="h-8 sidebar-row my-2" onclick="openDialog()"
+                     x-data="{ userDrop: false }">
+                    <button class="w-full flex items-center capitalize text-sm pr-8 font-medium" x-on:click="userDrop=true">
+                        <p class="truncate">{{ Auth::user()->username }}'s DeVotion</p>
+                        <i class="fa-solid fa-chevron-down ml-2"></i>
+                    </button>
+                    <a href="{{ route('viewCreateWorkspace.type') }}">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    @include('components.sidebar.sidebar-user-action')
+                </div>
+                {{-- Search --}}
+                <button x-on:click="search=true" class="group sidebar-row my-1 text-sm font-semibold">
+                    <i class="fa-solid fa-magnifying-glass fa-md mr-2 text-gray-400"></i>
+                    <div>Search</div>
                 </button>
-                <a href="{{ route('viewCreateWorkspace.type') }}">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </a>
-                @include('components.sidebar.sidebar-user-action')
+
+                {{-- Settings & Members --}}
+                <button x-on:click="setting=true" class="group sidebar-row my-1 text-sm font-semibold">
+                    <i class="fa-solid fa-gear fa-md mr-2 text-gray-400"></i>
+                    <div>Settings & Members</div>
+                </button>
+
+                <button x-on:click="invitations=true" class="group sidebar-row my-1 text-sm font-semibold">
+                    <i class="fa fa-envelope fa-md mr-2 text-gray-400" aria-hidden="true"></i>
+                    <div>Invitations</div>
+                </button>
+
+                {{-- Create Teamspace --}}
+                @can('teamspace-create', $workspace)
+                    <button x-on:click="teamspace=true" class="group sidebar-row my-1 text-sm font-semibold">
+                        <i class="fa-solid fa-user-group fa-md mr-2 text-gray-400"></i>
+                        <div>Create Teamspace</div>
+                    </button>
+                @endcan
             </div>
-            {{-- Search --}}
-            <button x-on:click="search=true" class="group sidebar-row my-1 text-sm font-semibold">
-                <i class="fa-solid fa-magnifying-glass fa-md mr-2 text-gray-400"></i>
-                <div>Search</div>
-            </button>
-
-            {{-- Settings & Members --}}
-            <button x-on:click="setting=true" class="group sidebar-row my-1 text-sm font-semibold">
-                <i class="fa-solid fa-gear fa-md mr-2 text-gray-400"></i>
-                <div>Settings & Members</div>
-            </button>
-
-            <button x-on:click="invitations=true" class="group sidebar-row my-1 text-sm font-semibold">
-                <i class="fa fa-envelope fa-md mr-2 text-gray-400" aria-hidden="true"></i>
-                <div>Invitations</div>
-            </button>
-
-            {{-- Create Teamspace --}}
-            @can('teamspace-create', $workspace)
-                <button x-on:click="teamspace=true" class="group sidebar-row my-1 text-sm font-semibold">
-                    <i class="fa-solid fa-user-group fa-md mr-2 text-gray-400"></i>
-                    <div>Create Teamspace</div>
-                </button>
-            @endcan
 
 
             {{-- Teamspace --}}

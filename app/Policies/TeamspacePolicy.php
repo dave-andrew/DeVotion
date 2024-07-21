@@ -64,7 +64,7 @@ class TeamspacePolicy
      */
     public function update(User $user, Workspace $workspace, Teamspace $teamspace)
     {
-        if($teamspace->permission == 'private') {
+        if($teamspace->permission == 'private' || $teamspace->permission == 'default') {
             return $workspace->users->find($user->id)->pivot->role == 'owner' || $workspace->users->find($user->id)->pivot->role == 'admin';
         }
 

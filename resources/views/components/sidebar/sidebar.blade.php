@@ -2,7 +2,7 @@
 
 <div class="relative w-60 h-full min-h-screen -z-50"></div>
 
-<div class="fixed left-0 z-40 h-full">
+<div class="fixed left-0 z-40 max-h-full">
     <div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100"
          x-data="{ search: false, setting: false, teamspace: false, workspace: false, invitations: false }" x-cloak>
         <div class="relative h-full max-h-full flex flex-col">

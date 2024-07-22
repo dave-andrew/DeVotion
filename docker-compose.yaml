@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: laravel-db
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=devotion
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 2s
+      timeout: 20s
+      retries: 10
+    networks:
+      - devotion
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: laravel-app
+    container_name: laravel-app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8000:80
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - devotion
+
+volumes:
+  dbdata:
+
+networks:
+  devotion:
+    driver: bridge

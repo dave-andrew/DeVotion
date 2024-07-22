@@ -71,9 +71,8 @@ Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorksp
         ->middleware('checkInviteAuthorization')
         ->name('deleteNote');
 
-   Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
-       ->name('viewWorkspaceNote');
-
+   Route::get('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote']);
+   
     Route::post('/{workspace_id}/note/{note_id}', [WorkspaceController::class, 'viewWorkspaceNote'])
         ->name('viewWorkspaceNote');
 

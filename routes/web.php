@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Log;
 */
 
 Route::middleware('checkUserLogin')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('viewLogin');
+    });
     Route::get('/login', [AuthController::class, 'viewLogin'])->name('viewLogin');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 
@@ -30,6 +33,10 @@ Route::middleware('checkUserLogin')->group(function () {
 });
 
 Route::middleware(['checkUserIsLogin', 'checkUserWorkspace', 'authenticateWorkspace'])->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('viewWorkspace');
+    });
+
     Route::get('/{workspace_id}', [WorkspaceController::class, 'viewWorkspace'])->name('viewWorkspace');
 
     Route::post('/duplicateNote/{workspace_id}', [NoteController::class,'duplicate'])

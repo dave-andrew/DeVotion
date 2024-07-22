@@ -5,11 +5,3 @@
     </div>
     @livewire('note-detail', ['notedetail' => $notedetail, 'note' => $note])
 </div>
-
-{{--<script>--}}
-{{--    document.addEventListener('DOMContentLoaded', function () {--}}
-{{--        const inputElement = document.getElementById(@json($notedetail->id));--}}
-
-{{--        inputElement.value = @json($data->content);--}}
-{{--    });--}}
-{{--</script>--}}

@@ -13,6 +13,7 @@ class NoteDetail extends Component
     public $detail;
     public $count = 0;
     public $editable;
+    public $type;
 
     public $listeners = ['note-detail-edit' => 'update'];
 
@@ -21,6 +22,7 @@ class NoteDetail extends Component
         if($this->count == 0 && $this->detail->id == $detail['id']){
             $id = $detail['id'];
             $this->content = $detail['content'];
+            $this->type = $detail['type'];
             $this->detail = ModelsNotedetail::find($id);
         }else{
             $this->count = 0;
@@ -31,12 +33,14 @@ class NoteDetail extends Component
     {
         $this->editable = $editable;
         $this->content = $detail->content;
+        $this->type = $detail->type;
         $this->detail = $detail;
     }
 
     public function onChange()
     {
         $this->detail->content = $this->content;
+        $this->detail->type = $this->type;
         $this->detail->save();
         $this->count = 1;
         NoteDetailEdit::dispatch($this->detail);

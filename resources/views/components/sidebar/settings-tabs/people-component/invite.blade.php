@@ -3,7 +3,7 @@
     <div @click.stop
          class="bg-white w-[30rem] rounded-md p-4">
         <div class="flex justify-between items-center">
-            <h3 class="text-lg font-semibold">Change Password</h3>
+            <h3 class="text-lg font-semibold">Invite New Member</h3>
             <button class="text-gray-500" x-on:click="invite=false">
                 <i class="fas fa-times"></i>
             </button>

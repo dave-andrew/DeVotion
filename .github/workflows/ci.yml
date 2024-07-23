@@ -7,12 +7,44 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-
+  docker-build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Docker Compose Build
+      uses: docker/compose-action@v2
+      with:
+        compose-file: docker-compose.yml
+        compose-command: build
+    - name: Docker Hub Login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Docker Compose Push
+      uses: docker/compose-action@v2
+      with:
+        compose-file: docker-compose.yml
+        compose-command: push
+
+
+  
+  docker-pull-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: SSH and Pull Docker Image
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+
+        script: |
+          cd /home/dv23-1/DeVotion
+          wget -O docker-compose.server.yaml https://raw.githubusercontent.com/daveandrew/DeVotion/main/docker-compose.server.yaml
+          docker compose -f docker-compose.server.yaml pull
+          docker compose -f docker-compose.server.yaml down
+          docker compose -f docker-compose.server.yaml up -d
+          docker exec devotion-app php artisan migrate --force

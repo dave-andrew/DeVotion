@@ -1,6 +1,4 @@
-version: '3'
 services:
-
   db:
     image: mysql:8.0
     container_name: devotion-db
@@ -20,18 +18,13 @@ services:
       retries: 10
     networks:
       - devotion
-  
+
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: daveandrew/devotion-app:latest
     container_name: devotion-app
-    restart: unless-stopped
-    volumes:
-      - .:/var/www/html
     ports:
-      - 8000:80
+      - 3000:6969
+    restart: unless-stopped
     env_file:
       - .env
     depends_on:

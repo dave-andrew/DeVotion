@@ -23,7 +23,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         
     - name: Docker Compose Push
-      uses: docker/compose-action@v2
+      uses: 
       with:
         compose-file: docker-compose.yml
         compose-command: push
@@ -33,7 +33,7 @@ jobs:
   docker-pull-image:
     runs-on: ubuntu-latest
     needs: docker-build-and-push
-    
+
     steps:
     - name: SSH and Pull Docker Image
       uses: appleboy/ssh-action@master

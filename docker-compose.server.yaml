@@ -10,7 +10,7 @@ services:
     environment:
       - MYSQL_DATABASE=devotion
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=
+      - MYSQL_PASSWORD=root_password
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 2s

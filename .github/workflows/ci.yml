@@ -41,7 +41,7 @@ jobs:
 
         script: |
           cd /home/dv23-1/DeVotion
-          wget -O docker-compose.server.yaml https://raw.githubusercontent.com/daveandrew/DeVotion/main/docker-compose.server.yaml
+          wget -O docker-compose.server.yaml https://raw.githubusercontent.com/dave-andrew/DeVotion/main/docker-compose.server.yaml
 
           docker compose -f docker-compose.server.yaml pull
           docker compose -f docker-compose.server.yaml down

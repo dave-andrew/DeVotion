@@ -47,3 +47,5 @@ jobs:
           docker compose -f docker-compose.server.yaml down
           docker compose -f docker-compose.server.yaml up -d
           docker exec devotion-app php artisan migrate --force
+
+          

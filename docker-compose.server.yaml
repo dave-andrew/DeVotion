@@ -22,7 +22,7 @@ services:
     image: daveandrew/devotion-app:latest
     container_name: devotion-app
     ports:
-      - 8000:8000
+      - 8000:80
     restart: unless-stopped
     env_file:
       - .env

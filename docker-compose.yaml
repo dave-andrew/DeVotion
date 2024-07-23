@@ -31,7 +31,7 @@ services:
     volumes:
       - .:/var/www/html
     ports:
-      - 8000:800
+      - 6969:6969
     depends_on:
       db:
         condition: service_healthy

@@ -5,7 +5,7 @@
 @section('content')
     <div class="w-full max-w-sm  px-6 mx-0 my-auto flex flex-col ">
         <div class="max-w-[380px] w-full my-8 flex flex-col text-xl text-left font-medium justify-center items-center">
-            <h1 class=">Start your journey with <b class="text-2xl">DeVotion</b></h1>
+            <h1>Start your journey with <b class="text-2xl">DeVotion</b></h1>
         </div>
         <form action="{{ route('register') }}" method="POST" class="w-full flex flex-col text-grey-500">
             @csrf

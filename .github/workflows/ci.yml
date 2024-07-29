@@ -40,12 +40,19 @@ jobs:
         password: ${{ secrets.SSH_PASSWORD }}
 
         script: |
-          cd /home/dv23-1/DeVotion
-          wget -O docker-compose.server.yaml https://raw.githubusercontent.com/dave-andrew/DeVotion/main/docker-compose.server.yaml
+          cd /home/dv23-1
+
+          if [ -d "DeVotion" ]; then
+            echo "Directory 'DeVotion' exists. Pulling latest changes."
+            cd DeVotion
+            git pull origin main  # Adjust the branch name if necessary
+          else
+            echo "Directory 'DeVotion' does not exist. Cloning repository."
+            git clone https://github.com/dave-andrew/DeVotion.git
+          fi
 
           docker compose -f docker-compose.server.yaml pull
           docker compose -f docker-compose.server.yaml down
           docker compose -f docker-compose.server.yaml up -d
           docker exec devotion-app php artisan migrate --force
 
-          

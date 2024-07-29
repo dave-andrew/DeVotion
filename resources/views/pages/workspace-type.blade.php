@@ -4,26 +4,26 @@
 
 @section('content')
     <div class="w-full flex flex-col items-center justify-center pt-20">
-        <h3 class="text-xl font-bold dark:text-white">How do you want to use DeVotion?</h3>
+        <h3 class="text-xl font-bold">How do you want to use DeVotion?</h3>
         <h2 class="text-2xl font-bold text-gray-500">This helps customize your experience</h2>
         <div>
             <form action="{{ route('viewCreateWorkspace.detail') }}" method="get" class="flex flex-col justify-center gap-16">
                 @csrf
                 <div class="flex justify-center gap-16 pt-10">
-                    <label class="flex flex-col justify-center items-center cursor-pointer">
+                    <label class="flex flex-col justify-center items-center cursor-pointer transition-transform duration-300 hover:-translate-y-2">
                         <input type="radio" name="type" value="personal" class="visually-hidden">
-                        <div class="flex flex-col justify-center items-center cursor-pointer p-4 rounded-xl border-2 border-gray-700">
-                            <img src='{{asset('plan-type-for-work-darkmode.png')}}' alt="Personal Use" class="w-[200px] h-auto" />
-                            <div class="font-medium text-lg dark:text-white pt-4">Personal</div>
+                        <div class="flex flex-col justify-center items-center cursor-pointer p-4 rounded-xl border-2 border-gray-700 hover:shadow-lg">
+                            <img src='{{asset('plan-type-for-work-lightmode.png')}}' alt="Personal Use" class="w-[200px] h-auto" />
+                            <div class="font-medium text-lg pt-4">Personal</div>
                         </div>
 
                     </label>
 
-                    <label class="flex flex-col justify-center items-center cursor-pointer">
+                    <label class="flex flex-col justify-center items-center cursor-pointer transition-transform duration-300 hover:-translate-y-2">
                         <input type="radio" name="type" value="team" class="visually-hidden">
-                        <div class="flex flex-col justify-center items-center cursor-pointer p-4 rounded-xl border-2 border-gray-700">
-                            <img src='{{asset('plan-type-for-life-darkmode.png')}}' alt="Team Use" class="w-[200px] h-auto" />
-                            <div class="font-medium text-lg dark:text-white pt-4">Team</div>
+                        <div class="flex flex-col justify-center items-center cursor-pointer p-4 rounded-xl border-2 border-gray-700 hover:shadow-lg">
+                            <img src='{{asset('plan-type-for-life-lightmode.png')}}' alt="Team Use" class="w-[200px] h-auto" />
+                            <div class="font-medium text-lg pt-4">Team</div>
                         </div>
                     </label>
                 </div>

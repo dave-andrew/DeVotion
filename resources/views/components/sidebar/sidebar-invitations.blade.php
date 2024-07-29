@@ -10,22 +10,22 @@
 
                     <h2 class="text-gray-500 font-semibold mb-3">You have {{ Auth::user()->invitations->count() }} invitations</h2>
                     @foreach(Auth::user()->invitations as $invitation)
-                        <div class="flex items-center mb-4 bg-gray-100 rounded-lg p-4 shadow">
+                        <div class="flex items-center mb-4 rounded-lg p-4 shadow-md bg-neutral-50">
                             <img src="{{asset($invitation->workspace->image)}}" alt="{{ $invitation->workspace->name }}" class="h-10 w-10 rounded-full mr-4" />
                             <div class="flex flex-col">
                                 <h1 class="text-gray-700 font-semibold">{{ $invitation->workspace->name }}</h1>
                                 <h2 class="text-gray-500">{{ $invitation->invitedBy->username }}</h2>
                             </div>
                             <div class="flex items-center ml-auto gap-2">
-                                <form method="POST" action="{{route('invitation.accept')}}">
+                                <form method="POST" action="{{ route('invitation.accept') }}">
                                     @csrf
                                     <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 p-2 rounded-md text-white text-xs font-medium">Accept</button>
+                                    <button type="submit" class="bg-white text-gray-800 p-2 rounded-md text-sm font-medium shadow-md transform hover:-translate-y-1 transition">Accept</button>
                                 </form>
-                                <form method="POST" action="{{route('invitation.decline')}}">
+                                <form method="POST" action="{{ route('invitation.decline') }}">
                                     @csrf
                                     <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
-                                    <button type="submit" class="bg-red-500 hover:bg-red-600 p-2 rounded-md text-white text-xs font-medium">Decline</button>
+                                    <button type="submit" class="text-red-800 hover:text-red-600 p-2 rounded-md text-xs font-medium">Decline</button>
                                 </form>
                             </div>
                         </div>

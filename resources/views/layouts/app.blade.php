@@ -19,7 +19,7 @@
 </style>
 
 <body>
-    <div class="relative min-h-screen w-full flex justify-center items- dark:bg-primary">
+    <div class="relative min-h-screen w-full flex justify-center items-center bg-neutral-200">
         @auth
             @include('components.sidebar.sidebar')
         @endauth

@@ -51,6 +51,8 @@ jobs:
             git clone https://github.com/dave-andrew/DeVotion.git
           fi
 
+          cd DeVotion
+
           docker compose -f docker-compose.server.yaml pull
           docker compose -f docker-compose.server.yaml down
           docker compose -f docker-compose.server.yaml up -d

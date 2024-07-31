@@ -24,6 +24,8 @@ services:
     ports:
       - 8000:80
     restart: unless-stopped
+    volumes:
+      - .:/var/www/html
     env_file:
       - .env
     depends_on:

@@ -5,17 +5,17 @@
 @section('content')
     <div class="w-full max-w-sm px-6 mx-0 my-auto flex flex-col">
         <div class="max-w-[380px] w-full my-8 flex flex-col text-2xl text-left font-semibold">
-            <h1 class="dark:text-white">Think it. Make it.</h1>
+            <h1 class="">Think it. Make it.</h1>
             <h1 class="text-gray-500 text-xl">Log in to your DeVotion account</h1>
         </div>
         <form action="{{route('login')}}" method="POST" class="w-full flex flex-col text-grey-500">
             @csrf
-            <label class="text-sm mb-2 dark:text-white" for="email">Email</label>
-            <input class="auth-input dark:bg-gray-700 dark:text-white" type="text" name="email" id="email" placeholder="Enter your email address..." value="{{old('email')}}">
-            <label class="text-sm mb-2 dark:text-white" for="password">Password</label>
-            <input class="auth-input dark:bg-gray-700 dark:text-white" type="password" name="password" id="password" placeholder="Enter your password..." value="{{old('password')}}">
+            <label class="text-sm mb-2 " for="email">Email</label>
+            <input class="auth-input" type="text" name="email" id="email" placeholder="Enter your email address..." value="{{old('email')}}">
+            <label class="text-sm mb-2" for="password">Password</label>
+            <input class="auth-input" type="password" name="password" id="password" placeholder="Enter your password..." value="{{old('password')}}">
             <label class="flex items-center mb-2">
-                <input class="w-4 h-4 dark:bg-gray-700 dark:text-white" type="checkbox" name="remember"> <span class="ml-2 dark:text-white">Remember me</span>
+                <input class="w-4 h-4" type="checkbox" name="remember"> <span class="ml-2">Remember me</span>
             </label>
             @if ($errors->any())
                 <p class="error">

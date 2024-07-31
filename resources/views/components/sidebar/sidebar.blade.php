@@ -1,8 +1,8 @@
 @php($counter = 0)
 
-<div class="relative w-60 h-full min-h-screen -z-50"></div>
+<div class="relative w-60 h-full min-h-screen -z-50 text-2xl"></div>
 
-<div class="fixed left-0 z-40 h-full">
+<div class="fixed left-0 z-40 h-full shadow-md">
     <div class="relative w-60 h-full min-h-screen flex flex-col bg-stone-100"
          x-data="{ search: false, setting: false, teamspace: false, workspace: false, invitations: false }" x-cloak>
         <div class="relative h-full flex flex-col">
@@ -55,7 +55,7 @@
                     @endcannot
                     <div class="group sidebar-row flex items-center justify-between mt-2 text-sm">
                         @php($counter++)
-                        <h1 onclick="hideNotes({{ $counter }})">{{ $team->name }}</h1>
+                        <h1 onclick="hideNotes({{ $counter }})" class="text-ellipsis overflow-hidden">{{ $team->name }}</h1>
                         @can('teamspace-update', [$workspace, $team])
                             <form action="{{ route('createNote', $workspace->id) }}" method="post" class="group-hover:flex hidden">
                                 @csrf

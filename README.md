@@ -7,21 +7,23 @@ DeVotion is a Laravel-based note-taking application inspired by Notion. It facil
 - Authorization: Role-based access control for secure sharing.
 - Real-Time Collaboration: Live updates with WebSocket integration.
 
-Requirements
+## Requirements
 - PHP >= 8.0
 - Composer
 - Node.js
 - MySQL/PostgreSQL
 - Installation
 
-Clone the repository:
+## Project Setup
+
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/dave-andrew/DeVotion.git
 cd DeVotion
 ```
 
-Install dependencies:
+2. Install dependencies:
 
 ```bash
 composer install
@@ -35,7 +37,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Configure database and OAuth credentials in .env file.
+3. Configure database and OAuth credentials in .env file.
 
 Run migrations:
 
@@ -43,14 +45,14 @@ Run migrations:
 php artisan migrate
 ```
 
-Start the local server:
+4. Start the local server:
 
 ```bash
 Copy code
 php artisan serve
 ```
 
-Compile front-end assets:
+5. Compile front-end assets:
 
 ```bash
 Copy code
